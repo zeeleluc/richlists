@@ -6,22 +6,38 @@
     <meta name="description" content="">
     <meta name="author" content="HasMints.com">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?=env('URL'); ?>/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?=env('URL'); ?>/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?=env('URL'); ?>/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="<?=env('URL'); ?>/assets/favicon/site.webmanifest">
 
     <title><?=$htmlTitle; ?></title>
 
     <link href="<?=env('URL'); ?>/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?=env('URL'); ?>/assets/css/shared-styling.css" rel="stylesheet">
     <link href="<?=env('URL'); ?>/assets/css/main.css?t=<?=date('dmYHi'); ?>" rel="stylesheet">
 
 </head>
 
-<body>
+<body class="text-center">
 
-<?=$content; ?>
+<div class="d-flex h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <h3 class="masthead-brand">XRPL RichLists</h3>
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link active" href="#">Home</a>
+<!--                <a class="nav-link" href="#">All RichLists</a>-->
+            </nav>
+        </div>
+    </header>
 
-</body>
+    <?=$content; ?>
+
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+            <p>Built by <a target="_blank" href="https://hasmints.com/">HasMints</a>.</p>
+        </div>
+    </footer>
+</div>
+
 </html>

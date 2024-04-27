@@ -1,6 +1,7 @@
 <?php
+require_once "vendor/autoload.php";
 
-define('LIBRARY_PATH', realpath(dirname(__FILE__)) . DS . 'lib' . DS);
+define('LIBRARY_PATH', realpath(dirname(__FILE__)) . DS . 'src' . DS);
 
 set_include_path(
     get_include_path() . PATH_SEPARATOR . LIBRARY_PATH

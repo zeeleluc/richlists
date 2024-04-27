@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="HasMints.com">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+
+    <title><?=$htmlTitle; ?></title>
+
+    <link href="<?=env('URL'); ?>/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=env('URL'); ?>/assets/css/shared-styling.css" rel="stylesheet">
+    <link href="<?=env('URL'); ?>/assets/css/main.css?t=<?=date('dmYHi'); ?>" rel="stylesheet">
+
+</head>
+
+<body>
+
+<?=$content; ?>
+
+</body>
+</html>

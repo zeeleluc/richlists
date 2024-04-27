@@ -1,2 +1,4 @@
 /provision/
 Vagrantfile
+/vendor
+.env

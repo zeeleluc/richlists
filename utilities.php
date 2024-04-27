@@ -31,3 +31,20 @@ if (!function_exists('camelize')) {
         return lcfirst(str_replace($separator, '', ucwords($result, $separator)));
     }
 }
+
+/**
+ * return null|string
+ */
+if (!function_exists('env')) {
+    function env (string $key)
+    {
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv->load();
+
+        if (!array_key_exists($key, $_ENV)) {
+            return null;
+        }
+
+        return $_ENV[$key];
+    }
+}

@@ -3,20 +3,19 @@ include_once 'preload.php';
 include_once 'autoloader.php';
 include_once 'utilities.php';
 
-if (is_cli()) {
-    try {
-        if (!isset($argv[0]) && !isset($argv[1])) {
-            throw new Exception('Missing required parameters');
-        }
+try {
+    // Initialize the application.
+    $initialize = new \App\Initialize();
 
-        // validate action
-        $action = camelize($argv[1]);
+    // Run the action and show the output.
+    $initialize->action()->show();
+} catch (Exception $e) {
+    ob_start();
+    require(ROOT . DS . 'templates' . DS . 'layouts' . DS . 'error.phtml');
+    $errorPage = ob_get_contents();
+    ob_end_clean();
 
-        // implement cli actions
+    // Slack message about error
 
-    } catch (Exception $e) {
-        echo $e->getMessage() . PHP_EOL;
-    }
-} else {
-    // todo
+    echo $errorPage;
 }

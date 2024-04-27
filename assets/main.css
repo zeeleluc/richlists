@@ -1,0 +1,669 @@
+@font-face {
+    font-family: 'Joystix Monospace';
+    src: url('../fonts/JoystixMonospace-Regular.eot');
+    src: url('../fonts/JoystixMonospace-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/JoystixMonospace-Regular.woff2') format('woff2'),
+    url('../fonts/JoystixMonospace-Regular.woff') format('woff'),
+    url('../fonts/JoystixMonospace-Regular.ttf') format('truetype'),
+    url('../fonts/JoystixMonospace-Regular.svg#JoystixMonospace-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*body, .card, .row, .container-content, .card-footer pre {*/
+/*    background-color: #222 !important;*/
+/*    color: #ddd;*/
+/*}*/
+:root {
+    --jumbotron-padding-y: 3rem;
+}
+img.comments-loading {
+    width: 40px;
+}
+.bg-primary, .btn-primary {
+    background-color: #3f7bd3 !important;
+}
+.btn.bg-primary {
+    color: white;
+}
+.btn.comment-delete {
+    padding: 0;
+    margin: 0 0 5px 0;
+}
+.strong, td.strong {
+    font-weight: bold;
+}
+table.rarities-holdings-table tr td {
+    padding: 2px 4px;
+    border-color: white;
+}
+.badge {
+    margin-right: 5px;
+}
+.badge.bg-light {
+    background-color: #aaaaaa !important;
+}
+.badge.bg-primary a {
+    color: white;
+}
+.comments-container {
+    padding: 0;
+}
+.comments-container .card-body p {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.comments-container .card {
+    background: none;
+}
+.comments-container .card td {
+    padding: 2px 0;
+}
+.logout-container {
+    background-color: white;
+}
+.main-login-buttons .btn:hover {
+    text-decoration:none;
+    opacity: 95%;
+}
+.main-login-buttons .btn-danger {
+    background-color: #c26f82;
+    border-color: #c26f82;
+}
+.main-login-buttons .btn-danger.btn-xumm {
+    background-color: #b36577;
+    border-color: #b36577;
+}
+.main-login-buttons .btn-success {
+    background-color: #61a961;
+    border-color: #61a961;
+}
+.main-login-buttons .btn-success.btn-xumm {
+    background-color: #649d64;
+    border-color: #649d64;
+}
+.homepage-cover-container {
+    background-image: url("https://familynfts.sfo3.cdn.digitaloceanspaces.com/ripplepunks-rewind/15.gif");
+    background-repeat: no-repeat;
+    background-position: left 25% bottom 0;
+    min-height: 576px;
+    background-color: #C2E4F7;
+}
+.homepage-cover-container .homepage-teaser-text {
+    text-align: left;
+    width: 650px;
+    margin-left: 47%;
+    margin-top: 200px;
+}
+.homepage-cover-container .homepage-teaser-text h1 {
+    font-size: 40px;
+    text-align: left;
+}
+.on-demand-info-banner {
+    text-align: center;
+    background-color: #5bb963;
+    color: white;
+    margin: 10px 10px 40px 0;
+    border-radius: 5px;
+    padding: 15px 20px 10px 20px;
+    font-size: 18px;
+}
+.row-mobile-rewinds p {
+    font-size: 20px;
+    font-style: italic;
+}
+@media (max-width: 1400px) {
+    .homepage-cover-container .homepage-teaser-text h1 {
+        font-size: 35px;
+    }
+    .homepage-cover-container .homepage-teaser-text {
+        width: 450px;
+        margin-left: 51%;
+    }
+}
+@media (max-width: 1200px) {
+    .homepage-cover-container .homepage-teaser-text h1 {
+        font-size: 30px;
+    }
+    .homepage-cover-container .homepage-teaser-text {
+        width: 350px;
+        margin-left: 56%;
+    }
+}
+@media (min-width: 993px) {
+    .show-992px-and-below-only {
+        display: none;
+    }
+}
+@media (max-width: 992px) {
+    .show-992px-and-below-only {
+        display: block;
+    }
+    .homepage-cover-container .homepage-teaser-text {
+        display:none;
+    }
+    .homepage-cover-container {
+        background-position: center;
+        margin-bottom: 50px;
+    }
+}
+
+@media (max-width: 792px) {
+    .homepage-cover-container .homepage-teaser-text {
+        display:none;
+    }
+    .homepage-cover-container {
+        background-position: center;
+        margin-bottom: 50px;
+        min-height: 376px;
+        background-size: 376px;
+    }
+}
+
+.footer-container {
+    background: white;
+    border-radius: 2px;
+    margin-top: 15px;
+    padding: 10px 20px;
+}
+.navbar-toggler {
+    border-color: white;
+}
+.navbar-toggler-icon {
+    background-image: url(
+    "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+.navbar-brand img{
+    height: 50px;
+    margin-right: 10px;
+}
+nav.navar-ripplepunks {
+    background-color: #1a90e3;
+    padding: 0;
+}
+body.ripplepunks {
+    background: linear-gradient(160deg, #1a90e3, #ffffff);
+}
+table.rarities-holdings-table tr td .progress {
+    background-color: #e6f2ff;
+}
+table.rarities-holdings-table tr td .progress-bar {
+    background-color: #97c9ff;
+}
+a.card-sales-summary:hover {
+    text-decoration: none;
+}
+.card-sales-summary {
+    text-align: center;
+}
+.card-sales-summary h5 {
+    font-size: 30px;
+}
+.card-sales-summary p {
+    font-size: 17px;
+    margin: 0;
+    line-height: 120%;
+}
+.card-sales-summary p strong {
+    font-size: 19px;
+}
+.card {
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+    border: none;
+}
+.card-with-fat-border {
+    border: 4px solid #ddd;
+    border-radius: 6px;
+    background-color: #e9f3fd;
+}
+.card-sales-summary {
+    border: none;
+    margin-bottom: 30px;
+    background: linear-gradient(203deg, #6099c1, #1a90e3);
+    color: #ffffff;
+}
+.card-sales-summary.card-red {
+    background: linear-gradient(203deg, #c16060, #c43333);
+}
+.card-sales-summary.card-green {
+    background: linear-gradient(203deg, #7bc160, #70e364);
+}
+.card-other-summary {
+    background: linear-gradient(203deg, #e4f3ff, #ffffff);
+    color: #333;
+}
+.card-quick-link {
+    background: linear-gradient(203deg, #6099c1, #1a90e3);
+    color: #ffffff;
+}
+.card-other-summary .card-title small {
+    font-size: 14px;
+}
+.card-sales-summary .card-body small {
+    font-size: 14px;
+    font-weight: normal;
+}
+.card-sales-summary .card-body em {
+    font-size: 16px;
+    font-weight: normal;
+}
+.card-sales-summary .card-body em small {
+    font-size: 12px;
+}
+.card-sales-summary .card-body {
+    padding: 20px 0;
+}
+.row-small-bottom-info {
+    margin: -25px 0 20px 0;
+    color: #aaa;
+    text-align: center;
+}
+a, a.nav-link {
+    text-decoration: none;
+    color: #2184cd;
+}
+a.nav-link:hover {
+    text-decoration: none;
+}
+a.nav-link .badge {
+    margin: 0 0 0 5px;
+}
+a:hover {
+    text-decoration: underline;
+}
+.down-arrow-tip-right:before {
+    margin-left: 10px;
+    content: "\21B3";
+}
+.down-arrow-red:before {
+    color: red;
+    content: "\23F7";
+}
+.up-arrow-green:before {
+    color: green;
+    content: "\23F6";
+}
+.row-welcome p {
+    margin: 15px 20px;
+    font-size: 20px;
+}
+table.transactions tr td {
+    font-size: 14px;
+    padding: 4px 2px 3px 6px;
+}
+table.transactions tr:hover {
+    background-color: #ddd;
+}
+.fam-sign {
+
+    font-size: 30px;
+}
+.profile small {
+    display: block;
+    line-height: 120%;
+    font-style: italic;
+    margin-top: 5px;
+}
+.badge-small {
+    margin-right: 0;
+    padding: 3px 6px 4px 6px;
+}
+svg.transfer {
+    font-size: 12px;
+    width: 30px;
+    margin: 0 10px;
+}
+svg.transfer-small {
+    font-size: 12px;
+    width: 20px;
+    margin: 0 2px;
+}
+svg.transactions-between-wallets {
+    font-size: 8px;
+    width: 15px;
+    margin: 0 5px;
+}
+.badge-large {
+    font-size: 18px;
+    padding: 6px 8px;
+}
+.hide {
+    display: none;
+}
+.container-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 2px;
+}
+.btn-xmartpunks, .barde-xmartpunks {
+    background: #b853bf;
+    color: white;
+    border-color: #b853bf;
+}
+a.xmartpunks {
+    color: #8d2795;
+}box-border
+#myFamHandles {
+    background-color: #efefef;
+    border: 1px solid #cccccc;
+}
+.row.row-friend-buttons {
+    text-align: center;
+    padding: 0;
+    margin-bottom: 30px;
+}
+.jumbotron {
+    padding-top: var(--jumbotron-padding-y);
+    padding-bottom: var(--jumbotron-padding-y);
+    margin-bottom: 0;
+    background-color: #fff;
+    /*background-image: url("../img/6-min.jpeg");*/
+    background-size: cover;
+}
+@media (min-width: 768px) {
+    .jumbotron {
+        padding-top: calc(var(--jumbotron-padding-y) * 2);
+        padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+    }
+}
+@media (max-width: 991px) {
+    .img-thumbnail {
+        width:100% !important;
+        float: unset !important;
+        margin: 10px 0 !important;
+    }
+}
+.looney-luca-row {
+    margin: 0;
+    background-color: #fff;
+    background-image: url("../img/header.png");
+    background-size: cover;
+    padding: 200px 0;
+    text-align: center;
+}
+.looney-luca-row .btn {
+    font-size: 24px;
+    margin: 0 10px;
+    padding: 20px 18px;
+}
+article {
+    font-size: 1.2em;
+}
+article p {
+    line-height: 1.8em;
+}
+article h2 {
+    font-size: 2em;
+}
+article h3 {
+    font-size: 1.5em;
+    margin-top: 40px;
+}
+.nav-pills .nav-link {
+    background-color: #dfefff;
+    margin-right: 20px;
+}
+table.table-numbers td {
+    padding: 0.25rem;
+    font-size: 0.8rem;
+}
+.jumbotron p:last-child {
+    margin-bottom: 0;
+}
+
+.jumbotron-heading {
+    font-weight: 300;
+    font-size: 50px;
+}
+.row.row-home-friends {
+    background-color: white;
+    box-shadow: 0 .155rem .55rem rgba(0,0,0,.175)!important;
+    padding: 15px;
+    margin: 4px;
+}
+.row.row-home-friends h1 {
+    margin: 10px 0;
+}
+.row.row-home-friends center p {
+    margin-bottom: 40px;
+    font-size: 20px;
+}
+.row.row-home-friends .card {
+    background: rgb(238,238,238);
+    background: linear-gradient(42deg, rgba(238,238,238,1) 0%, rgba(255,255,255,1) 40%);
+}
+.lead.text-muted {
+    font-size: 20px;
+}
+.jumbotron.home .container {
+    padding: 0 10px;
+    max-width: 55rem;
+    background: rgba(255,255,255, 0.9);
+    border-radius: 10px;
+}
+.jumbotron.home-secondary {
+    background: gray;
+}
+
+.jumbotron.collection {
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+
+}
+.friend .col.sidebar table td {
+    width: 33.3333%;
+    text-align: center;
+}
+.friend table thead {
+    font-weight: bold;
+}
+.friend h3 {
+    margin: 40px 0 15px 10px;
+}
+.friend .btn-default {
+    font-weight: bold;
+}
+footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+footer p {
+    margin-bottom: .25rem;
+}
+.navbar a {
+    color: #ffffff;
+}
+.navbar li a.dropdown-item {
+    color: #333333;
+}
+.navbar-familynfts {
+    background-color: #ffe1f7;
+    color: #333;
+    font-size: 20px;
+    padding: 10px 0;
+    text-align: center;
+    display: block;
+}
+@media (max-width: 600px) {
+    .navbar-familynfts {
+        font-size: 15px;
+    }
+}
+footer.familynfts {
+    padding:0;
+    margin: 0;
+}
+body h1 {
+    font-size: 1.9rem;
+    text-align: center;
+    margin-bottom: 15px;
+}
+@media (max-width: 600px) {
+    body h1 {
+        font-size: 1.2rem;
+        margin-bottom: 0;
+    }
+}
+span.flamingo {
+    font-size: 43px;
+}
+body h2 {
+    text-align: center;
+}
+body .card-header h3 {
+    text-align: center;
+    margin: 20px 0 5px 0;
+}
+body .card-header h4 {
+    text-align: center;
+    margin: 0 0 15px 0;
+    padding: 0;
+    color: #333;
+}
+body.ripplepunks h1 {
+    font-size: 1.6rem;
+    font-family: 'Joystix Monospace', serif;
+}
+body.ripplepunks h2 {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 15px;
+}
+body.ripplepunks  .card-header h2 {
+    text-align: center;
+    font-family: 'Joystix Monospace', serif;
+    padding: 20px;
+    margin: 0;
+    font-size: 16px;
+}
+
+.card-img-top {
+    border-radius: 0;
+}
+.card-punk .card-header, .row-punk .card-header {
+    border: none;
+}
+.card-punk .card-body {
+    padding: 20px;
+}
+.card-punk .card-body p {
+    font-size: 20px;
+}
+.card-punk .card-body table td {
+    padding: 5px 0;
+    font-size: 14px;
+}
+.row-punk .card-body {
+    padding: 0;
+}
+.card-punk .card-footer {
+    padding: 20px;
+    text-align: center;
+}
+h2 {
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+}
+.row-home h2 {
+    margin: 60px 0 20px 5px;
+    font-family: 'Joystix Monospace', serif;
+    text-align: center;
+}
+.ripplepunks-font {
+    font-family: 'Joystix Monospace', serif;
+}
+.row-sweep {
+    background-color: #fff8c2;
+    margin: 60px -20px;
+    padding: 0 0 40px 0;
+    text-align: center;
+}
+.row-blue-bg {
+    background-color: #cae9ff;
+    margin: 0 -20px;
+    padding: 0 20px;
+}
+body.ripplepunks .row-blue-bg h2 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.row-sweep embed, .row-sweep embed > div, .row-sweep embed html {
+    background-color: #fff8c2 !important;
+}
+.row-sweep h2 {
+    margin: 60px 0 50px 5px;
+    font-family: 'Joystix Monospace', serif;
+    font-size: 40px;
+    color: #163761;
+}
+h3 {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+h4 {
+    font-size: 1rem;
+}
+.table-bordered td, .table-bordered th {
+    font-size: 0.9rem;
+}
+.lefttop-promo h5 {
+    margin-bottom: 0;
+    font-size: 1.2rem;
+    text-align: center;
+}
+.lefttop-promo .card-group:first-child .card {
+    border-radius: 0.25rem 0.25rem 0 0;
+    margin-bottom: -2px;
+}
+.lefttop-promo .card-group:first-child .card {
+    border-radius: 0 0 0.25rem 0.25rem;
+}
+.lefttop-promo .card-group:last-child .card-body {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.lefttop-promo .card-group:last-child .card:last-child {
+    text-align: right;
+}
+img.cryptoicon {
+    width: 20px;
+}
+
+/**
+ * Floor sweep widget xrp.cafe
+ */
+embed#floorsweep  {
+
+}
+table.royalties-table thead tr td {
+    font-weight: bold;
+}
+
+table.royalties-table tr td {
+    font-size: 13px;
+}
+
+.base-chain-row {
+    background-color: #3251FC;
+    color: white;
+    padding: 10px 0;
+    font-size: 40px;
+}
+.base-chain-row p {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.base-chain-row p a {
+    color: #99BFFF;
+}
+@media (max-width: 993px) {
+    .base-chain-row {
+        font-size: 20px;
+    }
+}

@@ -47,9 +47,30 @@ class Query extends BaseObject
         return $this->db->tableExists([$tableName]);
     }
 
+    public function getResultsPerOwner(string $table): array
+    {
+        $sql = <<<SQL
+SELECT owner, COUNT(*) AS total_nfts FROM {$table} GROUP BY owner;
+SQL;
+
+        return $this->db->rawQuery($sql);
+    }
+
     public function createTableRichList(string $tableName)
     {
-        // @todo
+        $sql = <<<SQL
+CREATE TABLE {$tableName} (
+    id int auto_increment primary key,
+    wallet varchar(48) NOT NULL,
+    collection_issuer integer(48) NOT NULL,
+    collection_taxon integer(6) NOT NULL,
+    total_holdings varchar(6) NOT NULL,
+    created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at datetime NULL
+);
+SQL;
+
+        return $this->db->rawQuery($sql);
     }
 
     public function createTableNFTs(string $tableName)

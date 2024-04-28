@@ -3,20 +3,22 @@ namespace App\RichList;
 
 class Config {
 
+    const RIPPLE_PUNKS = 'ripplepunks';
+
     private array $richLists = [
-        'ripplepunks' => [
+        self::RIPPLE_PUNKS => [
             [
-                // RipplePunks
+                'name' => 'RipplePunks',
                 'issuer' => 'r3SvAe5197xnXvPHKnyptu3EjX5BG8f2mS',
                 'taxon' => 604,
             ],
             [
-                // RipplePunks Rewind
+                'name' => 'RipplePunks Rewind',
                 'issuer' => 'r3SvAe5197xnXvPHKnyptu3EjX5BG8f2mS',
                 'taxon' => 48919,
             ],
             [
-                // RipplePunks Quartet
+                'name' => 'RipplePunks Quartet',
                 'issuer' => 'r3SvAe5197xnXvPHKnyptu3EjX5BG8f2mS',
                 'taxon' => 23578,
             ],
@@ -36,4 +38,16 @@ class Config {
         return $this->richLists;
     }
 
+    public static function mapProjectNameSlug(string $projectSlug):? string
+    {
+        $mapper = [
+            self::RIPPLE_PUNKS => 'RipplePunks',
+        ];
+
+        if (!array_key_exists($projectSlug, $mapper)) {
+            return null;
+        }
+
+        return $mapper[$projectSlug];
+    }
 }

@@ -71,11 +71,6 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
     private function handleTables()
     {
         foreach ($this->config->getProjectsIssuerTaxon() as $project => $collections) {
-            $tableNameRichList = $this->getTableNameRichList($project);
-            if (!$this->getQuery()->hasTable($tableNameRichList)) {
-                $this->getQuery()->createTableRichList($tableNameRichList);
-            }
-
             foreach ($collections as $collection) {
                 $tableNameNFTs = $this->getTableNFTs($project, $collection['issuer'], $collection['taxon']);
                 if (!$this->getQuery()->hasTable($tableNameNFTs)) {
@@ -83,11 +78,6 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
                 }
             }
         }
-    }
-
-    private function getTableNameRichList(string $project)
-    {
-        return $project . '_rich_list';
     }
 
     private function getTableNFTs(string $project, string $issuer, string $taxon)

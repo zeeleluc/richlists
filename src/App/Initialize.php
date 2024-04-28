@@ -6,6 +6,7 @@ use App\Action\Action as AbstractAction;
 use App\Action\BaseAction;
 use App\Object\BaseObject;
 use App\Object\ObjectManager;
+use App\RichList\Config;
 
 class Initialize extends BaseObject
 {
@@ -64,6 +65,13 @@ class Initialize extends BaseObject
 
         if (false === isset($get['action']) || (true === isset($get['action']) && '' === $get['action'])) {
             return new \App\Action\Actions\Home();
+        }
+
+        // check if this is a request for a richlist
+        $config = new Config();
+        $projects = array_keys($config->getProjectsIssuerTaxon());
+        if (in_array($get['action'], $projects)) {
+            return new \App\Action\Actions\RichList();
         }
 
         throw new \Exception('Page not found.');

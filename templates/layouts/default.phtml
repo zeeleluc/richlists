@@ -18,26 +18,20 @@
 
 </head>
 
-<body class="text-center">
+<body class="bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="<?=env('URL'); ?>">XRPL RichLists</a>
+        <a class="nav-link" href="#">All RichLists</a>
+    </div>
+</nav>
 
-<div class="d-flex h-100 p-3 mx-auto flex-column">
-    <header class="masthead mb-auto">
-        <div class="inner">
-            <h3 class="masthead-brand">XRPL RichLists</h3>
-            <nav class="nav nav-masthead justify-content-center">
-                <a class="nav-link active" href="#">Home</a>
-<!--                <a class="nav-link" href="#">All RichLists</a>-->
-            </nav>
-        </div>
-    </header>
-
+<main>
     <?=$content; ?>
+</main>
 
-    <footer class="mastfoot mt-auto">
-        <div class="inner">
-            <p>Built by <a target="_blank" href="https://hasmints.com/">HasMints</a>.</p>
-        </div>
-    </footer>
-</div>
+<footer class="py-4">
+    <p>Built by <a target="_blank" href="https://hasmints.com/">HasMints</a>.</p>
+</footer>
 
 </html>

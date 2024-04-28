@@ -2,9 +2,17 @@
 namespace App;
 
 use App\Object\BaseObject;
+use Carbon\Carbon;
 
 class Query extends BaseObject
 {
+    private \MysqliDb $db;
+
+    public function __construct()
+    {
+        $this->db = $this->db();
+    }
+
     private function db(): \MysqliDb
     {
         return new \MysqliDb(
@@ -15,14 +23,28 @@ class Query extends BaseObject
         );
     }
 
+    public function hasNFT(string $table, string $nftID): bool
+    {
+        return (bool) $this->db
+            ->where('nft_id', $nftID)
+            ->get($table);
+    }
+
     public function insertNFTdata(string $table, array $params): bool
     {
-        return $this->db()->insert($table, $params);
+        if ($this->hasNFT($table, $params['nft_id'])) {
+            $params['updated_at'] = Carbon::now()->format('Y-m-d H:i:s');
+            return $this->db
+                ->where('nft_id', $params['nft_id'])
+                ->update($table, $params);
+        } else {
+            return $this->db->insert($table, $params);
+        }
     }
 
     public function hasTable(string $tableName): bool
     {
-        return $this->db()->tableExists([$tableName]);
+        return $this->db->tableExists([$tableName]);
     }
 
     public function createTableRichList(string $tableName)
@@ -50,6 +72,6 @@ CREATE TABLE {$tableName} (
 );
 SQL;
 
-        return $this->db()->rawQuery($sql);
+        return $this->db->rawQuery($sql);
     }
 }

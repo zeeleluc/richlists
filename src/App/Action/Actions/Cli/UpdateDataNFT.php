@@ -31,18 +31,35 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
         foreach ($this->config->getProjectsIssuerTaxon() as $project => $collections) {
             foreach ($collections as $collection) {
                 try {
-                    $request = new NFTsByIssuerRequest(
-                        issuer: $collection['issuer'],
-                        nft_taxon: $collection['nft_taxon']
-                    );
-                    $response = $this->client->syncRequest($request); /* @var $response NFTsByIssuerResponse */
-                    foreach ($response->getResult() as $index => $result) {
-                        $tableNameNFTs = $this->getTableNFTs($project, $collection['issuer'], $collection['taxon']);
-                        $this->getQuery()->insertNFTdata(
-                            $tableNameNFTs,
-                            $result
+                    $marker = null;
+                    do {
+                        $request = new NFTsByIssuerRequest(
+                            issuer: $collection['issuer'],
+                            nft_taxon: $collection['taxon'],
+                            marker: $marker
                         );
-                    }
+                        $response = $this->client->syncRequest($request); /* @var $response NFTsByIssuerResponse */
+                        $responseResults = $response->getResult();
+                        foreach ($responseResults as $key => $results) {
+                            $tableNameNFTs = $this->getTableNFTs($project, $collection['issuer'], $collection['taxon']);
+                            /**
+                             * @todo throw Exception and send Slack message if no nfts found, or error returned from Clio
+                             */
+                            if ($key === 'nfts') {
+                                foreach ($results as $nftData) {
+                                    $this->getQuery()->insertNFTdata(
+                                        $tableNameNFTs,
+                                        $nftData
+                                    );
+                                }
+                            }
+                        }
+
+                        $marker = array_key_exists('marker', $responseResults) ?
+                            $responseResults['marker'] :
+                            null;
+
+                    } while(is_string($marker));
 
                 } catch (GuzzleException $e) {
                     var_dump($e->getMessage());

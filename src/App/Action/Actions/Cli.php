@@ -1,13 +1,19 @@
 <?php
 namespace App\Action\Actions;
 
+use App\Action\Actions\Cli\UpdateDataNFT;
 use App\Action\BaseAction;
 
 class Cli extends BaseAction
 {
 
+    private string $action;
+
     public function __construct()
     {
+        $this->terminal = true;
+        parent::__construct();
+
         if (!$_SERVER['argv']) {
             exit;
         }
@@ -16,21 +22,11 @@ class Cli extends BaseAction
             exit;
         }
 
-        $this->terminal = true;
-        parent::__construct();
+        $this->action = $_SERVER['argv'][1];
 
-        $action = $_SERVER['argv'][1];
-
-        if ($action === 'create-data-csv-loading-punks') {
-
-
+        if ($this->action === 'update-data-nft') {
+            $cliAction = new UpdateDataNFT();
+            $cliAction->run();
         }
-
-        exit;
-    }
-
-    public function run()
-    {
-        exit;
     }
 }

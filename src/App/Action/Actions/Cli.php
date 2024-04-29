@@ -30,7 +30,7 @@ class Cli extends BaseAction
             // temp. for monitoring
             $start = date_create();
             $slack = new \App\Slack();
-            $slack->sendInfoMessage('Started with cronjob `updata-data-nft`');
+            $slack->sendInfoMessage('Started with cronjob `update-data-nft`');
             // temp. for monitoring
 
             $cliAction = new UpdateDataNFT();
@@ -38,7 +38,7 @@ class Cli extends BaseAction
 
             // temp. for monitoring
             $took = date_diff($start, date_create())->format('%H:%I:%S');
-            $slack->sendInfoMessage('Done, took ' . $took);
+            $slack->sendInfoMessage('Done with `update-data-nft`, took ' . $took);
             // temp. for monitoring
         }
 
@@ -55,7 +55,7 @@ class Cli extends BaseAction
 
             // temp. for monitoring
             $took = date_diff($start, date_create())->format('%H:%I:%S');
-            $slack->sendInfoMessage('Done, took ' . $took);
+            $slack->sendInfoMessage('Done with `calc-richlists`, took ' . $took);
             // temp. for monitoring
         }
     }

@@ -14,6 +14,17 @@ class CalcRichLists extends BaseAction implements CliActionInterface
         foreach ($config->getProjectsIssuerTaxon() as $project => $collections) {
             $countsPerWallet = (new Service($project))->getCountsPerWallet();
 
+            // filter out unwanted wallets for the rich list
+            $unwantedWallets = env('WALLETS_IGNORE_' . strtoupper($project));
+            if ($unwantedWallets) {
+                $unwantedWallets = explode(',', $unwantedWallets);
+                foreach ($unwantedWallets as $unwantedWallet) {
+                    if (array_key_exists($unwantedWallet, $countsPerWallet)) {
+                        unset($countsPerWallet[$unwantedWallet]);
+                    }
+                }
+            }
+
             file_put_contents(
                 './data/richlists-cache/' . $project . '.json',
                 json_encode($countsPerWallet)

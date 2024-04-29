@@ -48,3 +48,10 @@ if (!function_exists('env')) {
         return $_ENV[$key];
     }
 }
+
+if (!function_exists('abort')) {
+    function abort() {
+        header('Location: /');
+        exit;
+    }
+}

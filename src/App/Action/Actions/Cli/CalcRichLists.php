@@ -31,9 +31,6 @@ class CalcRichLists extends BaseAction implements CliActionInterface
             if (!$result) {
                 $slack = new \App\Slack();
                 $slack->sendErrorMessage('Writing rich list data to file `' . $fileName . '` failed!');
-            } else {
-                $slack = new \App\Slack();
-                $slack->sendSuccessMessage('Sucessfully cached rich list data for project `' . $project . '`');
             }
         }
     }

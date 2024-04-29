@@ -20,7 +20,12 @@ class Api extends BaseAction
         }
 
         $service = new Service($project);
-        $json = json_encode($service->getCountsPerWalletFromCache());
+        $countsPerWallet = $service->getCountsPerWalletFromCache();
+        if (!$countsPerWallet) {
+            $countsPerWallet = $service->getCountsPerWallet();
+        }
+
+        $json = json_encode($countsPerWallet);
         echo $json;
         exit;
     }

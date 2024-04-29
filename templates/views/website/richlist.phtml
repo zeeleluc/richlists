@@ -6,15 +6,18 @@
             </h1>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col col-10">
+    <div class="row justify-content-center row-richlist">
+        <div class="col col-12 col-xs-10">
             <div class="table-responsive">
                 <table class="table">
                     <?php $index = 1; ?>
                     <?php foreach ($countsPerWallet as $wallet => $countPerWallet): ?>
-                        <tr>
-                            <td>#<?=$index; ?></td>
-                            <td><?=$wallet; ?></td>
+                        <tr data-wallet="<?=$wallet; ?>">
+                            <td class="text-center">#<?=$index; ?></td>
+                            <td>
+                                <span class="wallet-full"><?=$wallet; ?></span>
+                                <span class="wallet-trimmed"><?=substr($wallet, 0, 16); ?>..</span>
+                            </td>
                             <td class="text-end">
                                 <a class="btn btn-primary" href="#">
                                     <?=$countPerWallet['total']; ?>

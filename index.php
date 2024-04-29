@@ -9,6 +9,10 @@ try {
 
     // Run the action and show the output.
     $initialize->action()->show();
+
+    // Clear any alerts or form errors so we show them only once
+    $session = new \App\Session();
+    $session->destroySession('alert');
 } catch (Exception $e) {
     ob_start();
     require(ROOT . DS . 'templates' . DS . 'layouts' . DS . 'error.phtml');

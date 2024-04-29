@@ -2,6 +2,7 @@
 namespace App\Action\Actions;
 
 use App\Action\BaseAction;
+use App\RichList\Config;
 use App\RichList\Service;
 
 class Api extends BaseAction
@@ -16,18 +17,31 @@ class Api extends BaseAction
         $key = $this->getRequest()->getParam('api');
         $project = env('API_' . $key);
         if (!$project) {
-            abort();
+            $response = [
+                'error' => 'RichList not found.',
+            ];
+            echo json_encode($response);
+            exit;
         }
 
-        $service = new Service($project);
-        $countsPerWallet = $service->getCountsPerWalletFromCache();
-        if (!$countsPerWallet) {
-            $countsPerWallet = $service->getCountsPerWallet();
-        }
+        try {
+            $service = new Service($project);
+            $countsPerWallet = $service->getCountsPerWalletFromCache();
+            if (!$countsPerWallet) {
+                $countsPerWallet = $service->getCountsPerWallet();
+            }
 
-        $json = json_encode($countsPerWallet);
-        echo $json;
-        exit;
+            $json = json_encode($countsPerWallet);
+            echo $json;
+            exit;
+        } catch (\Exception $e) {
+            $projectName = Config::mapProjectNameSlug($project);
+            $response = [
+                'error' => 'RichList for ' . $projectName . ' almost ready, try again later.',
+            ];
+            echo json_encode($response);
+            exit;
+        }
     }
 
     public function run()

@@ -50,7 +50,16 @@ if (!function_exists('env')) {
 }
 
 if (!function_exists('abort')) {
-    function abort() {
+    function abort(string $message = null, string $type = 'success') {
+
+        if ($message) {
+            $session = new \App\Session();
+            $session->setSession('alert', [
+                'message' => $message,
+                'type' => $type,
+            ]);
+        }
+
         header('Location: /');
         exit;
     }

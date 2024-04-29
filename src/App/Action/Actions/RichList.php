@@ -16,14 +16,19 @@ class RichList extends BaseAction
         $this->setView('website/richlist');
 
         $project = $this->getRequest()->getParam('action');
+        $projectName = Config::mapProjectNameSlug($project);
 
-        $service = new Service($project);
-        $countsPerWallet = $service->getCountsPerWalletFromCache();
-        if (!$countsPerWallet) {
-            $countsPerWallet = $service->getCountsPerWallet();
+        try {
+            $service = new Service($project);
+            $countsPerWallet = $service->getCountsPerWalletFromCache();
+            if (!$countsPerWallet) {
+                $countsPerWallet = $service->getCountsPerWallet();
+            }
+        } catch (\Exception $e) {
+            abort('RichList for ' . $projectName . ' almost ready, try again later.', 'danger');
         }
 
-        $this->setVariable(new Variable('projectName', Config::mapProjectNameSlug($project)));
+        $this->setVariable(new Variable('projectName', $projectName));
         $this->setVariable(new Variable('countsPerWallet', $countsPerWallet));
         $this->setVariable(new Variable('collections', $service->getCountsPerWalletBluePrint()['collections']));
     }

@@ -19,21 +19,31 @@
 </head>
 
 <body class="bg-dark">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="<?=env('URL'); ?>">XRPL RichLists 🤑</a>
-        <a class="nav-link" href="<?=env('URL'); ?>/all-richlists">All RichLists</a>
-    </div>
-</nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="<?=env('URL'); ?>">XRPL RichLists 🤑</a>
+            <a class="nav-link" href="<?=env('URL'); ?>/all-richlists">All RichLists</a>
+        </div>
+    </nav>
 
-<main>
-    <?=$content; ?>
-</main>
+    <main>
 
-<footer class="py-4">
-    <p>Built by <a target="_blank" href="https://hasmints.com/">HasMints</a>.</p>
-</footer>
-<script src="<?=env('url'); ?>/assets/js/main.js"></script>
+        <?php if ($alert): ?>
+            <div class="container">
+                <div class="alert alert-<?=$alert['type']; ?> mt-5 text-center" role="alert">
+                    <?=$alert['message']; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?=$content; ?>
+    </main>
+
+    <footer class="py-4">
+        <p>Built by <a target="_blank" href="https://hasmints.com/">HasMints</a>.</p>
+    </footer>
+
+    <script src="<?=env('url'); ?>/assets/js/main.js"></script>
 </body>
 
 </html>

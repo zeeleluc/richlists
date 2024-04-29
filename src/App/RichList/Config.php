@@ -10,6 +10,17 @@ class Config {
     const ASTRO_NAUGHTIES = 'astronaughties';
 
     private array $richLists = [
+        self::ASTRO_NAUGHTIES => [
+            [
+                'name' => 'AstroNaughties',
+                'issuer' => 'rGNuFE4e2c5NwEp2HnuiJqaSVdaNYRQ7PV',
+                'taxon' => 53,
+            ],
+            [
+                'name' => 'Older Collections',
+                'issuer' => 'rMQw4pe2eXvs6b5hKLNM2MCgVqHEHwXBkJ',
+            ],
+        ],
         self::RIPPLE_PUNKS => [
             [
                 'name' => 'RipplePunks',
@@ -62,17 +73,6 @@ class Config {
                 'name' => 'XRPunks',
                 'issuer' => 'r3SvAe5197xnXvPHKnyptu3EjX5BG8f2mS',
                 'taxon' => 6669233,
-            ],
-        ],
-        self::ASTRO_NAUGHTIES => [
-            [
-                'name' => 'AstroNaughties',
-                'issuer' => 'rGNuFE4e2c5NwEp2HnuiJqaSVdaNYRQ7PV',
-                'taxon' => 53,
-            ],
-            [
-                'name' => 'Older Collections',
-                'issuer' => 'rMQw4pe2eXvs6b5hKLNM2MCgVqHEHwXBkJ',
             ],
         ],
     ];

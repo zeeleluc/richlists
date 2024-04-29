@@ -25,10 +25,16 @@ class CalcRichLists extends BaseAction implements CliActionInterface
                 }
             }
 
-            file_put_contents(
-                './data/richlists-cache/' . $project . '.json',
-                json_encode($countsPerWallet)
-            );
+            $fileName = './data/richlists-cache/' . $project . '.json';
+            $result = file_put_contents($fileName, json_encode($countsPerWallet));
+
+            if (!$result) {
+                $slack = new \App\Slack();
+                $slack->sendErrorMessage('Writing rich list data to file `' . $fileName . '` failed!');
+            } else {
+                $slack = new \App\Slack();
+                $slack->sendSuccessMessage('Sucessfully cached rich list data for project `' . $project . '`');
+            }
         }
     }
 }

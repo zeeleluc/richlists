@@ -10,7 +10,7 @@ try {
     // Run the action and show the output.
     $initialize->action()->show();
 
-    // Clear any alerts or form errors so we show them only once
+    // Clear any alerts or form errors, so we show them only once.
     $session = new \App\Session();
     $session->destroySession('alert');
 } catch (Exception $e) {
@@ -19,7 +19,8 @@ try {
     $errorPage = ob_get_contents();
     ob_end_clean();
 
-    // Slack message about error
+    $slack = new \App\Slack();
+    $slack->sendErrorMessage($e->getMessage());
 
     echo $errorPage;
 }

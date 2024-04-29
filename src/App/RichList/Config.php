@@ -24,7 +24,7 @@ class Config {
                 'taxon' => 53,
             ],
             [
-                'name' => 'Older Collections',
+                'name' => 'AstroNaughties OG\'s',
                 'issuer' => 'rMQw4pe2eXvs6b5hKLNM2MCgVqHEHwXBkJ',
             ],
         ],

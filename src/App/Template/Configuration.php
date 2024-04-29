@@ -10,12 +10,16 @@ abstract class Configuration extends BaseObject
         return [
             'default',
             'error',
+            'async',
         ];
     }
 
     public function views()
     {
         return [
+            'terminal' => [
+                'html',
+            ],
             'website' => [
                 'home',
                 'richlist',

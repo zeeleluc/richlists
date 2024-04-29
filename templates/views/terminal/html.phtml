@@ -1,0 +1,19 @@
+<table>
+    <?php $index = 1; ?>
+    <?php foreach ($countsPerWallet as $wallet => $countPerWallet): ?>
+        <tr data-wallet="<?=$wallet; ?>">
+            <td class="text-center">#<?=$index; ?></td>
+            <td><?=$wallet; ?></td>
+            <td class="text-end"><?=$countPerWallet['total']; ?></td>
+        </tr>
+        <tr style="display: none">
+            <td></td>
+            <td class="text-end" colspan="2">
+                <?php foreach ($countPerWallet['collections'] as $collectionName => $collectionData): ?>
+                    <?=$collectionName; ?>: <?=$collectionData['total']; ?><br />
+                <?php endforeach; ?>
+            </td>
+        </tr>
+        <?php $index++; ?>
+    <?php endforeach; ?>
+</table>

@@ -71,8 +71,12 @@ class Initialize extends BaseObject
             return new Action\Actions\AllRichLists();
         }
 
-        if ($get['action'] === 'api') {
-            return new Action\Actions\Api();
+        if ($get['action'] === 'json') {
+            return new Action\Actions\Json();
+        }
+
+        if ($get['action'] === 'html') {
+            return new Action\Actions\Html();
         }
 
         // check if this is a request for a richlist

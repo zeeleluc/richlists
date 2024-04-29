@@ -8,7 +8,6 @@ class Config {
     const RIPPLE_PUNKS = 'ripplepunks';
     const HAS_MINTS = 'hasmints';
 
-
     private array $richLists = [
         self::PIXEL_ASTROS => [
             [

@@ -12,4 +12,5 @@ Options -Indexes
 RewriteEngine On
 RewriteRule \.(css|jpe?g|gif|png|js|ico)$ - [L]
 RewriteRule ^([a-z0-9-]+)/?$ index.php?action=$1 [NC,L,QSA]
-RewriteRule ^(api)/([A-Z0-9]{10})/?$ index.php?action=$1&api=$2 [NC,L,QSA]
+RewriteRule ^(json)/([A-Z0-9]{10})/?$ index.php?action=$1&api=$2 [NC,L,QSA]
+RewriteRule ^(html)/([A-Z0-9]{10})/?$ index.php?action=$1&api=$2 [NC,L,QSA]

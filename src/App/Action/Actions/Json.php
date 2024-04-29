@@ -5,7 +5,7 @@ use App\Action\BaseAction;
 use App\RichList\Config;
 use App\RichList\Service;
 
-class Api extends BaseAction
+class Json extends BaseAction
 {
     public function __construct()
     {

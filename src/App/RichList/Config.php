@@ -3,11 +3,11 @@ namespace App\RichList;
 
 class Config {
 
+    const PIXEL_ASTROS = 'pixelastros';
+    const ASTRO_NAUGHTIES = 'astronaughties';
     const RIPPLE_PUNKS = 'ripplepunks';
-
     const HAS_MINTS = 'hasmints';
 
-    const ASTRO_NAUGHTIES = 'astronaughties';
 
     private array $richLists = [
         self::ASTRO_NAUGHTIES => [
@@ -93,9 +93,10 @@ class Config {
     public static function mapProjectNameSlug(string $projectSlug):? string
     {
         $mapper = [
+            self::PIXEL_ASTROS => 'PixelAstros',
+            self::ASTRO_NAUGHTIES => 'AstroNaughties',
             self::RIPPLE_PUNKS => 'RipplePunks',
             self::HAS_MINTS => 'HasMints',
-            self::ASTRO_NAUGHTIES => 'AstroNaughties',
         ];
 
         if (!array_key_exists($projectSlug, $mapper)) {

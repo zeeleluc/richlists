@@ -10,6 +10,13 @@ class Config {
 
 
     private array $richLists = [
+        self::PIXEL_ASTROS => [
+            [
+                'name' => 'PixelAstros',
+                'issuer' => 'rLULtFuV1agdSQdVmSd7AYx2cfEiN6noxY',
+                'taxon' => 34637,
+            ],
+        ],
         self::ASTRO_NAUGHTIES => [
             [
                 'name' => 'AstroNaughties',

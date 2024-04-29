@@ -43,20 +43,8 @@ class Cli extends BaseAction
         }
 
         if ($this->action === 'calc-richlists') {
-
-            // temp. for monitoring
-            $start = date_create();
-            $slack = new \App\Slack();
-            $slack->sendInfoMessage('Started with cronjob `calc-richlists`');
-            // temp. for monitoring
-
             $cliAction = new CalcRichLists();
             $cliAction->run();
-
-            // temp. for monitoring
-            $took = date_diff($start, date_create())->format('%H:%I:%S');
-            $slack->sendInfoMessage('Done with `calc-richlists`, took ' . $took);
-            // temp. for monitoring
         }
     }
 }

@@ -67,6 +67,10 @@ class Initialize extends BaseObject
             return new \App\Action\Actions\Home();
         }
 
+        if ($get['action'] === 'all-richlists') {
+            return new Action\Actions\AllRichLists();
+        }
+
         // check if this is a request for a richlist
         $config = new Config();
         $projects = array_keys($config->getProjectsIssuerTaxon());

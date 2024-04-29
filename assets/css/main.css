@@ -85,6 +85,13 @@ p {
     font-size: 80px;
     text-align: center;
 }
+.card {
+    background: linear-gradient(180deg, rgba(51,51,51,1) 0%, rgba(0,0,0,1) 150px, rgba(0,0,0,1) 100%);
+    text-align: center;
+    border: none;
+    color: #ffffff;
+    margin-bottom: 100px;
+}
 
 /**
  * Mobile/Smartphone

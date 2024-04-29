@@ -19,6 +19,7 @@ abstract class Configuration extends BaseObject
             'website' => [
                 'home',
                 'richlist',
+                'all-richlists',
             ],
         ];
     }

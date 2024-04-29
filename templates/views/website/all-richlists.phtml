@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-10">
+            <h1>
+                All RichList
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <?php foreach ($projects as $project => $collections): ?>
+            <div class="col col-3 col-sm-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h2><?=\App\RichList\Config::mapProjectNameSlug($project); ?></h2>
+                    </div>
+                    <div class="card-body">
+                        <?php foreach ($collections as $collection): ?>
+                            <?=$collection['name']; ?><br />
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary" href="<?=env('URL'); ?>/<?=$project; ?>">
+                            Go To RichList
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>

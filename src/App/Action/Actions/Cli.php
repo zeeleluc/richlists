@@ -3,7 +3,6 @@ namespace App\Action\Actions;
 
 use App\Action\Actions\Cli\CalcRichLists;
 use App\Action\Actions\Cli\UpdateDataNFT;
-use App\Action\Actions\Cli\UpdateDataRichList;
 use App\Action\BaseAction;
 
 class Cli extends BaseAction

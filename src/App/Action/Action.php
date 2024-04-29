@@ -5,27 +5,27 @@ use App\Object\BaseObject;
 
 class Action extends BaseObject
 {
-    private $_action;
+    private BaseAction $action;
 
-    private $_result = array();
+    private array $result = [];
 
-    public function setAction($action)
+    public function setAction(BaseAction $action): void
     {
-        $this->_action = $action;
+        $this->action = $action;
     }
 
     public function getAction()
     {
-        return $this->_action;
+        return $this->action;
     }
 
-    public function setResult($result)
+    public function setResult(array $result): void
     {
-        $this->_result = $result;
+        $this->result = $result;
     }
 
-    public function getResult()
+    public function getResult(): array
     {
-        return $this->_result;
+        return $this->result;
     }
 }

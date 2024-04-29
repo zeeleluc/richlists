@@ -43,6 +43,15 @@ class Service {
         return $array;
     }
 
+    public function getCountsPerWalletFromCache(): bool|array
+    {
+        if ($json = file_get_contents('./data/richlists-cache/' . $this->project . '.json')) {
+            return (array) json_decode($json, true);
+        }
+
+        return false;
+    }
+
     public function getCountsPerWallet(): array
     {
         if (!array_key_exists($this->project, $this->config)) {

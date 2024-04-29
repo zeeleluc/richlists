@@ -30,6 +30,18 @@ class Html extends BaseAction
             }
 
             $this->setVariable(new Variable('countsPerWallet', $countsPerWallet));
+            if ($css = $this->getRequest()->getParam('css')) {
+                $cssLines = explode(',', $css);
+                $cssRules = [];
+                foreach ($cssLines as $cssLine) {
+                    $cssStyle = explode('::', $cssLine);
+                    $cssStyle[0] = str_replace('_', ' ', $cssStyle[0]);
+                    $cssRules[] = $cssStyle;
+                }
+                $this->setVariable(new Variable('cssRules', $cssRules));
+            } else {
+                $this->setVariable(new Variable('cssRules',null));
+            }
         } catch (\Exception $e) {
             $projectName = Config::mapProjectNameSlug($project);
             echo 'RichList for ' . $projectName . ' almost ready, try again later.';

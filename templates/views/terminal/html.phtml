@@ -1,3 +1,10 @@
+<?php if ($cssRules): ?>
+    <style>
+        <?php foreach ($cssRules as $cssRule): ?>
+        <?=$cssRule[0] . '{' . $cssRule[1] . '}'; ?>
+        <?php endforeach; ?>
+    </style>
+<?php endif; ?>
 <table>
     <?php $index = 1; ?>
     <?php foreach ($countsPerWallet as $wallet => $countPerWallet): ?>

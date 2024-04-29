@@ -1,3 +1,7 @@
+<style>
+    .hide { display: none; }
+    .text-end { text-align: right }
+</style>
 <?php if ($cssRules): ?>
     <style>
         <?php foreach ($cssRules as $cssRule): ?>
@@ -11,9 +15,13 @@
         <tr data-wallet="<?=$wallet; ?>">
             <td class="text-center">#<?=$index; ?></td>
             <td><?=$wallet; ?></td>
-            <td class="text-end"><?=$countPerWallet['total']; ?></td>
+            <td class="text-end">
+                <a class="link-richlist-details" href="#">
+                    <?=$countPerWallet['total']; ?>
+                </a>
+            </td>
         </tr>
-        <tr style="display: none">
+        <tr class="hide">
             <td></td>
             <td class="text-end" colspan="2">
                 <?php foreach ($countPerWallet['collections'] as $collectionName => $collectionData): ?>
@@ -24,3 +32,16 @@
         <?php $index++; ?>
     <?php endforeach; ?>
 </table>
+<script>
+const links = document.querySelectorAll('a.link-richlist-details');
+if (links) {
+    links.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const parentRow = link.closest('tr');
+            const nextRow = parentRow.nextElementSibling;
+            nextRow.classList.toggle('hide');
+        });
+    });
+}
+</script>

@@ -82,7 +82,7 @@ CREATE TABLE {$tableName} (
     ledger_index integer(11) NOT NULL,
     owner varchar(48) NOT NULL,
     is_burned tinyint(1) NOT NULL,
-    uri varchar(180) NOT NULL,
+    uri varchar(255) NOT NULL,
     flags integer(6) NOT NULL,
     transfer_fee integer(8) NOT NULL,
     issuer varchar(48) NOT NULL,

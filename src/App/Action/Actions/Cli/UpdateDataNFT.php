@@ -28,8 +28,15 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
 
     public function updateNFTdata(): void
     {
+        $collectionsDoneByIssuerTaxon = [];
+
         foreach ($this->config->getProjectsIssuerTaxon() as $project => $collections) {
             foreach ($collections as $collection) {
+                echo $collection['name'] . PHP_EOL;
+                if (in_array($collection['issuer'] . '-' . $collection['taxon'], $collectionsDoneByIssuerTaxon)) {
+                    echo ' - DONE . ' . PHP_EOL;
+                    continue;
+                }
                 try {
                     $marker = null;
                     do {
@@ -41,7 +48,7 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
                         $response = $this->client->syncRequest($request); /* @var $response NFTsByIssuerResponse */
                         $responseResults = $response->getResult();
                         foreach ($responseResults as $key => $results) {
-                            $tableNameNFTs = $this->getTableNFTs($project, $collection['issuer'], $collection['taxon']);
+                            $tableNameNFTs = $this->getTableNFTs($collection['issuer'], $collection['taxon']);
                             /**
                              * @todo throw Exception and send Slack message if no nfts found, or error returned from Clio
                              */
@@ -64,6 +71,8 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
                 } catch (GuzzleException $e) {
                     var_dump($e->getMessage());
                 }
+
+                $collectionsDoneByIssuerTaxon[] = $collection['issuer'] . '-' . $collection['taxon'];
             }
         }
     }
@@ -72,7 +81,7 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
     {
         foreach ($this->config->getProjectsIssuerTaxon() as $project => $collections) {
             foreach ($collections as $collection) {
-                $tableNameNFTs = $this->getTableNFTs($project, $collection['issuer'], $collection['taxon']);
+                $tableNameNFTs = $this->getTableNFTs($collection['issuer'], $collection['taxon']);
                 if (!$this->getQuery()->hasTable($tableNameNFTs)) {
                     $this->getQuery()->createTableNFTs($tableNameNFTs);
                 }
@@ -80,8 +89,12 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
         }
     }
 
-    private function getTableNFTs(string $project, string $issuer, string $taxon)
+    private function getTableNFTs(string $issuer, int $taxon = null)
     {
-        return $project . '_' . $issuer . '_' . $taxon . '_nfts';
+        if ($taxon) {
+            return $issuer . '_' . $taxon . '_nfts';
+        }
+
+        return $issuer . '_nfts';
     }
 }

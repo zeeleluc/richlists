@@ -61,7 +61,6 @@ class Service {
         foreach ($this->config[$this->project] as $collection) {
             $countResults = $this->query->getResultsPerOwner(
                 $this->getTableNFTs(
-                    $this->project,
                     $collection['issuer'],
                     $collection['taxon']
                 )
@@ -86,9 +85,13 @@ class Service {
         return $this->countsPerWallet;
     }
 
-    private function getTableNFTs(string $project, string $issuer, string $taxon)
+    private function getTableNFTs(string $issuer, int $taxon = null)
     {
-        return $project . '_' . $issuer . '_' . $taxon . '_nfts';
+        if ($taxon) {
+            return $issuer . '_' . $taxon . '_nfts';
+        }
+
+        return $issuer . '_nfts';
     }
 
     private function handleCountForCollectionPerWallet(

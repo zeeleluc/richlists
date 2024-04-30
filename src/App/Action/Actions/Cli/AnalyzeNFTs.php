@@ -30,7 +30,7 @@ class AnalyzeNFTs extends BaseAction implements CliActionInterface
                 $tenMinutesInSeconds = 60 * 10;
 
                 if ($diffInSeconds > $tenMinutesInSeconds) {
-                    $text = 'Diff between oldest and newest record for `' . $collection . '` is more than 10 minutes.';
+                    $text = 'Diff between oldest and newest record for `' . $collection['name'] . '` is more than 10 minutes.';
                     $slack = new Slack();
                     $slack->sendErrorMessage($text);
                 }

@@ -36,6 +36,7 @@ class Html extends BaseAction
                 foreach ($cssLines as $cssLine) {
                     $cssStyle = explode('::', $cssLine);
                     $cssStyle[0] = str_replace('_', ' ', $cssStyle[0]);
+                    $cssStyle[1] = str_replace('_', ' ', $cssStyle[1]);
                     $cssRules[] = $cssStyle;
                 }
                 $this->setVariable(new Variable('cssRules', $cssRules));

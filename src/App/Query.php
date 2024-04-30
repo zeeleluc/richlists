@@ -56,6 +56,24 @@ SQL;
         return $this->db->rawQuery($sql);
     }
 
+    public function getOldestRecord(string $table):? array
+    {
+        if ($result = $this->db->orderBy('created_at', 'ASC')->get($table, [0,1])) {
+            return $result[0];
+        }
+
+        return null;
+    }
+
+    public function getNewestRecord(string $table):? array
+    {
+        if ($result = $this->db->orderBy('created_at')->get($table, [0,1])) {
+            return $result[0];
+        }
+
+        return null;
+    }
+
     public function createTableRichList(string $tableName)
     {
         $sql = <<<SQL

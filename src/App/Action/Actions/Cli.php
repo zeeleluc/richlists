@@ -1,6 +1,7 @@
 <?php
 namespace App\Action\Actions;
 
+use App\Action\Actions\Cli\AnalyzeNFTs;
 use App\Action\Actions\Cli\CalcRichLists;
 use App\Action\Actions\Cli\UpdateDataNFT;
 use App\Action\BaseAction;
@@ -44,6 +45,11 @@ class Cli extends BaseAction
 
         if ($this->action === 'calc-richlists') {
             $cliAction = new CalcRichLists();
+            $cliAction->run();
+        }
+
+        if ($this->action === 'analyze-nfts') {
+            $cliAction = new AnalyzeNFTs();
             $cliAction->run();
         }
     }

@@ -75,7 +75,7 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
                     } while(is_string($marker));
 
                 } catch (GuzzleException $e) {
-                    var_dump($e->getMessage());
+                    $this->slack->sendErrorMessage($e->getMessage());
                 }
 
                 $collectionsDoneByIssuerTaxon[] = $collection['issuer'] . '-' . $collection['taxon'];

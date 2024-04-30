@@ -8,6 +8,7 @@ use App\XRPL\NFTsByIssuerRequest;
 use App\XRPL\NFTsByIssuerResponse;
 use GuzzleHttp\Exception\GuzzleException;
 use Hardcastle\XRPL_PHP\Client\JsonRpcClient;
+use Hardcastle\XRPL_PHP\Models\ErrorResponse;
 
 class UpdateDataNFT extends BaseAction implements CliActionInterface
 {
@@ -50,12 +51,13 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
                             marker: $marker
                         );
                         $response = $this->client->syncRequest($request); /* @var $response NFTsByIssuerResponse */
-                        $responseResults = $response->getResult();
-                        if ($errorMessage = $response->getError()) {
-                            $this->slack->sendErrorMessage($errorMessage);
+
+                        if ($response instanceof ErrorResponse) {
+                            $this->slack->sendErrorMessage($response->getError());
+                            break;
                         }
-                        $responseAsJson = json_encode($responseResults);
-                        $this->slack->sendInfoMessage(substr($responseAsJson, 0, 100) . '....');
+
+                        $responseResults = $response->getResult();
                         foreach ($responseResults as $key => $results) {
                             $tableNameNFTs = $this->getTableNFTs($collection['issuer'], $collection['taxon']);
                             if ($key === 'nfts') {

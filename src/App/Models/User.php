@@ -113,6 +113,15 @@ class User extends BaseModel
     }
 
     /**
+     * @return array|User[]
+     * @throws \Exception
+     */
+    public function getCollections(): array
+    {
+        return $this->getQueryObject()->getAll();
+    }
+
+    /**
      * @throws \Exception
      */
     public function save()

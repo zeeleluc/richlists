@@ -31,6 +31,22 @@ class UserQuery extends Query
         return $user;
     }
 
+    /**
+     * @return array|User[]
+     * @throws \Exception
+     */
+    public function getAll(): array
+    {
+        $results = $this->db->get($this->table);
+
+        $users = [];
+        foreach ($results as $result) {
+            $users[] = (new User())->fromArray($result);
+        }
+
+        return $users;
+    }
+
     public function getUserByEmail(string $email): array
     {
         return $this->db

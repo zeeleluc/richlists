@@ -2,6 +2,7 @@
 namespace App\Query;
 
 use App\Models\Collection;
+use App\Models\User;
 use ArrayHelpers\Arr;
 use Carbon\Carbon;
 
@@ -33,6 +34,13 @@ class CollectionQuery extends Query
         $collection->fromArray($values);
 
         return $collection;
+    }
+
+    public function getCollectionsForUser(User $user): array
+    {
+        return $this->db
+            ->where('user_id', $user->id)
+            ->get($this->table);
     }
 
     public function getCollectionByChainAndNameAndUser(string $chain, string $name, int $userId): array

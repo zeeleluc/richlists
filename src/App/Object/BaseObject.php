@@ -3,6 +3,8 @@ namespace App\Object;
 
 use App\Action\Action;
 use App\Query\BlockchainTokenQuery;
+use App\Query\CollectionQuery;
+use App\Query\UserQuery;
 use App\Request;
 use App\Session;
 
@@ -25,6 +27,16 @@ abstract class BaseObject
     public function getBlockchainTokenQuery(): BlockchainTokenQuery
     {
         return ObjectManager::getOne('App\Query\BlockchainTokenQuery');
+    }
+
+    public function getCollectionQuery(): CollectionQuery
+    {
+        return ObjectManager::getOne('App\Query\CollectionQuery');
+    }
+
+    public function getUserQuery(): UserQuery
+    {
+        return ObjectManager::getOne('App\Query\UserQuery');
     }
 
     public function getRequest(): Request

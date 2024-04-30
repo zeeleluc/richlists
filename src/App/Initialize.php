@@ -7,7 +7,8 @@ use App\Action\BaseAction;
 use App\Object\BaseObject;
 use App\Object\ObjectManager;
 use App\Query\BlockchainTokenQuery;
-use App\RichList\Config;
+use App\Query\CollectionQuery;
+use App\Query\UserQuery;
 
 class Initialize extends BaseObject
 {
@@ -20,6 +21,8 @@ class Initialize extends BaseObject
 
         // set query classes
         ObjectManager::set(new BlockchainTokenQuery());
+        ObjectManager::set(new CollectionQuery());
+        ObjectManager::set(new UserQuery());
     }
 
     public function action(): Initialize
@@ -84,8 +87,7 @@ class Initialize extends BaseObject
         }
 
         // check if this is a request for a richlist
-        $config = new Config();
-        $projects = array_keys($config->getProjectsIssuerTaxon());
+        $projects = array_column($this->getUserQuery()->getAll(), 'project_name');
         if (in_array($get['action'], $projects)) {
             return new \App\Action\Actions\RichList();
         }

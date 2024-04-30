@@ -2,16 +2,20 @@
 namespace App\Action\Actions\Cli;
 
 use App\Action\BaseAction;
+use App\Models\User;
 use App\RichList\Config;
 use App\RichList\Service;
 
 class CalcRichLists extends BaseAction implements CliActionInterface
 {
+    /**
+     * @throws \Exception
+     */
     public function run(string $forProject = null)
     {
-        $config = new Config();
+        foreach ($this->getUserQuery()->getAll() as $user) {
 
-        foreach ($config->getProjectsIssuerTaxon() as $project => $collections) {
+            $project = $user->projectName;
 
             if ($forProject && $project !== $forProject) {
                 continue;

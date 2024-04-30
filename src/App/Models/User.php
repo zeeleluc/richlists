@@ -71,7 +71,7 @@ class User extends BaseModel
         return $user;
     }
 
-    public function toArray(BaseModel $model): array
+    public function toArray(): array
     {
         $array = [];
 
@@ -100,6 +100,16 @@ class User extends BaseModel
         }
 
         return $array;
+    }
+
+    public function getByEmail(string $email): User
+    {
+        return $this->fromArray($this->getQueryObject()->getUserByEmail($email));
+    }
+
+    public function getById(int $id): User
+    {
+        return $this->fromArray($this->getQueryObject()->getUserById($id));
     }
 
     /**

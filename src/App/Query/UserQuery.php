@@ -38,6 +38,13 @@ class UserQuery extends Query
             ->getOne($this->table);
     }
 
+    public function getUserById(int $id): array
+    {
+        return $this->db
+            ->where('id', $id)
+            ->getOne($this->table);
+    }
+
     public function doesProjectExist(string $projectName): bool
     {
         return (bool) $this->db

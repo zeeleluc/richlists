@@ -9,7 +9,7 @@ abstract class BaseModel
 
     abstract public function fromArray(array $values);
 
-    abstract public function toArray(BaseModel $model);
+    abstract public function toArray();
 
     abstract public function save();
 

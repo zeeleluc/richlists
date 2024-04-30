@@ -1,6 +1,7 @@
 <?php
 namespace App\RichList;
 
+use App\Action\Actions\Cli\CalcRichLists;
 use App\Query;
 
 class Service {
@@ -45,7 +46,14 @@ class Service {
 
     public function getCountsPerWalletFromCache(): bool|array
     {
-        if ($json = file_get_contents('./data/richlists-cache/' . $this->project . '.json')) {
+        $jsonFile = './data/richlists-cache/' . $this->project . '.json';
+        if (!file_exists($jsonFile)) {
+            $calcRichLists = new CalcRichLists();
+            $calcRichLists->run($this->project);
+        }
+
+        $json = file_get_contents($jsonFile);
+        if ($json) {
             return (array) json_decode($json, true);
         }
 

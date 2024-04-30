@@ -7,11 +7,16 @@ use App\RichList\Service;
 
 class CalcRichLists extends BaseAction implements CliActionInterface
 {
-    public function run()
+    public function run(string $forProject = null)
     {
         $config = new Config();
 
         foreach ($config->getProjectsIssuerTaxon() as $project => $collections) {
+
+            if ($forProject && $project !== $forProject) {
+                continue;
+            }
+
             $countsPerWallet = (new Service($project))->getCountsPerWallet();
 
             // filter out unwanted wallets for the rich list

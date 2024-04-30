@@ -16,6 +16,7 @@ class Initialize extends BaseObject
         ObjectManager::set(new Request());
         ObjectManager::set(new Session());
         ObjectManager::set(new AbstractAction());
+        ObjectManager::set(new Auth());
 
         // set query classes
         ObjectManager::set(new BlockchainTokenQuery());

@@ -4,7 +4,8 @@
         "thingengineer/mysqli-database-class": "dev-master",
         "hardcastle/xrpl_php": "^0.9.3",
         "nesbot/carbon": "^3.3",
-        "jolicode/slack-php-api": "^4.7"
+        "jolicode/slack-php-api": "^4.7",
+        "jdrieghe/array-helpers": "^0.2.0"
     },
     "config": {
         "allow-plugins": {

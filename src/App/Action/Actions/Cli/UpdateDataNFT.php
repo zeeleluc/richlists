@@ -2,10 +2,10 @@
 namespace App\Action\Actions\Cli;
 
 use App\Action\BaseAction;
+use App\Blockchain\XRPL\NFTsByIssuerRequest;
+use App\Blockchain\XRPL\NFTsByIssuerResponse;
 use App\RichList\Config;
 use App\Slack;
-use App\XRPL\NFTsByIssuerRequest;
-use App\XRPL\NFTsByIssuerResponse;
 use GuzzleHttp\Exception\GuzzleException;
 use Hardcastle\XRPL_PHP\Client\JsonRpcClient;
 use Hardcastle\XRPL_PHP\Models\ErrorResponse;

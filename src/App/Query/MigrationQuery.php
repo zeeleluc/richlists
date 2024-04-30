@@ -29,7 +29,7 @@ class MigrationQuery extends Query
     {
         try {
             $this->db->rawQuery($sql);
-            $this->addMigrationDone($identifier);
+            $this->addMigrationDone('sql-' . $identifier);
             return true;
         } catch (\Exception $exception) {
             return false;

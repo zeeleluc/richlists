@@ -1,6 +1,6 @@
 <?php
 
-namespace App\XRPL;
+namespace App\Blockchain\XRPL;
 
 use Hardcastle\XRPL_PHP\Models\BaseRequest;
 

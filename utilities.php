@@ -64,3 +64,17 @@ if (!function_exists('abort')) {
         exit;
     }
 }
+
+if (!function_exists('generate_token')) {
+    function generate_token() {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $charactersLength = strlen($characters);
+        $token = '';
+        for ($i = 0; $i < 24; $i++) {
+            $randomIndex = rand(0, $charactersLength - 1);
+            $token .= $characters[$randomIndex];
+        }
+
+        return $token;
+    }
+}

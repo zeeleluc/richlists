@@ -2,13 +2,13 @@
 namespace App\RichList;
 
 use App\Action\Actions\Cli\CalcRichLists;
-use App\Query;
+use App\Query\BlockchainTokenQuery;
 
 class Service {
 
     private array $config;
 
-    private Query $query;
+    private BlockchainTokenQuery $blockchainTokenQuery;
 
     private array $countsPerWallet = [];
 
@@ -17,7 +17,7 @@ class Service {
     public function __construct(readonly private string $project)
     {
         $this->config = (new Config())->getProjectsIssuerTaxon();
-        $this->query = new Query();
+        $this->blockchainTokenQuery = new BlockchainTokenQuery();
         $this->countsPerWalletBluePrint = $this->createCountsPerWalletBluePrint();
     }
 
@@ -67,7 +67,7 @@ class Service {
         }
 
         foreach ($this->config[$this->project] as $collection) {
-            $countResults = $this->query->getResultsPerOwner(
+            $countResults = $this->blockchainTokenQuery->getResultsPerOwner(
                 $this->getTableNFTs(
                     $collection['issuer'],
                     $collection['taxon']

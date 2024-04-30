@@ -62,7 +62,7 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
                             $tableNameNFTs = $this->getTableNFTs($collection['issuer'], $collection['taxon']);
                             if ($key === 'nfts') {
                                 foreach ($results as $nftData) {
-                                    $this->getQuery()->insertNFTdata(
+                                    $this->getBlockchainTokenQuery()->insertNFTdata(
                                         $tableNameNFTs,
                                         $nftData
                                     );
@@ -90,8 +90,8 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
         foreach ($this->config->getProjectsIssuerTaxon() as $project => $collections) {
             foreach ($collections as $collection) {
                 $tableNameNFTs = $this->getTableNFTs($collection['issuer'], $collection['taxon']);
-                if (!$this->getQuery()->hasTable($tableNameNFTs)) {
-                    $this->getQuery()->createTableNFTs($tableNameNFTs);
+                if (!$this->getBlockchainTokenQuery()->hasTable($tableNameNFTs)) {
+                    $this->getBlockchainTokenQuery()->createTableNFTs($tableNameNFTs);
                 }
             }
         }

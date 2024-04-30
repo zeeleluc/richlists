@@ -2,7 +2,7 @@
 namespace App\Object;
 
 use App\Action\Action;
-use App\Query;
+use App\Query\BlockchainTokenQuery;
 use App\Request;
 use App\Session;
 
@@ -23,7 +23,7 @@ class ObjectManager
     /**
      * @throws \Exception
      */
-    public static function getOne($objectName): BaseObject|Action|Session|Request|Query
+    public static function getOne($objectName): BaseObject|Action|Session|Request|BlockchainTokenQuery
     {
         if (false === array_key_exists($objectName, self::getAll())) {
             throw new \Exception(sprintf('Object \'%s\' not found.', $objectName));

@@ -23,8 +23,8 @@ class AnalyzeNFTs extends BaseAction implements CliActionInterface
         foreach ($this->config->getProjectsIssuerTaxon() as $project => $collections) {
             foreach ($collections as $collection) {
                 $tableNameNFTs = $this->getTableNFTs($collection['issuer'], $collection['taxon']);
-                $oldestCreatedAt = Carbon::parse($this->getQuery()->getOldestRecord($tableNameNFTs)['created_at']);
-                $newestCreatedAt = Carbon::parse($this->getQuery()->getNewestRecord($tableNameNFTs)['created_at']);
+                $oldestCreatedAt = Carbon::parse($this->getBlockchainTokenQuery()->getOldestRecord($tableNameNFTs)['created_at']);
+                $newestCreatedAt = Carbon::parse($this->getBlockchainTokenQuery()->getNewestRecord($tableNameNFTs)['created_at']);
 
                 $diffInSeconds = $oldestCreatedAt->diffInSeconds($newestCreatedAt);
                 $tenMinutesInSeconds = 60 * 10;

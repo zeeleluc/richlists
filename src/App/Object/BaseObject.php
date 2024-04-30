@@ -2,7 +2,7 @@
 namespace App\Object;
 
 use App\Action\Action;
-use App\Query;
+use App\Query\BlockchainTokenQuery;
 use App\Request;
 use App\Session;
 
@@ -22,9 +22,9 @@ abstract class BaseObject
         return $this->objectManager;
     }
 
-    public function getQuery(): Query
+    public function getBlockchainTokenQuery(): BlockchainTokenQuery
     {
-        return ObjectManager::getOne('App\Query');
+        return ObjectManager::getOne('App\Query\BlockchainTokenQuery');
     }
 
     public function getRequest(): Request

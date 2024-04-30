@@ -6,6 +6,7 @@ use App\Action\Action as AbstractAction;
 use App\Action\BaseAction;
 use App\Object\BaseObject;
 use App\Object\ObjectManager;
+use App\Query\BlockchainTokenQuery;
 use App\RichList\Config;
 
 class Initialize extends BaseObject
@@ -14,8 +15,10 @@ class Initialize extends BaseObject
     {
         ObjectManager::set(new Request());
         ObjectManager::set(new Session());
-        ObjectManager::set(new Query());
         ObjectManager::set(new AbstractAction());
+
+        // set query classes
+        ObjectManager::set(new BlockchainTokenQuery());
     }
 
     public function action(): Initialize

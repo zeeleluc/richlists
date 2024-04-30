@@ -1,27 +1,10 @@
 <?php
-namespace App;
+namespace App\Query;
 
-use App\Object\BaseObject;
 use Carbon\Carbon;
 
-class Query extends BaseObject
+class BlockchainTokenQuery extends Query
 {
-    private \MysqliDb $db;
-
-    public function __construct()
-    {
-        $this->db = $this->db();
-    }
-
-    private function db(): \MysqliDb
-    {
-        return new \MysqliDb(
-            env('DB_HOST'),
-            env('DB_USERNAME'),
-            env('DB_PASSWORD'),
-            env('DB_DBNAME')
-        );
-    }
 
     public function hasNFT(string $table, string $nftID): bool
     {

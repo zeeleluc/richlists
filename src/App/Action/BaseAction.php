@@ -21,7 +21,7 @@ class BaseAction extends BaseObject
             }
         } else {
 
-            $htmlTitle = 'XRPL RichLists';
+            $htmlTitle = 'RichLists';
 
             $this->setVariable(new Variable('htmlTitle', $htmlTitle));
             $this->template = new Template();

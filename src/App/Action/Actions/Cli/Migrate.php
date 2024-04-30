@@ -27,6 +27,8 @@ class Migrate extends BaseAction implements CliActionInterface
         foreach ($migrations as $migration) {
             $sql = file_get_contents(ROOT . '/migrations/' . $migration . '.sql');
             $this->migrationQuery->executeMigration($sql, $migration);
+
+            echo 'Migration ' . $migration . ' done!' . PHP_EOL
         }
     }
 

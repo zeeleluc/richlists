@@ -95,6 +95,8 @@ class Initialize extends BaseObject
                 if ($user->projectSlug === $get['project']) {
                     if ($get['chain'] === 'xrpl') {
                         return new Action\Actions\XRPL\RichList();
+                    } else {
+                        return new Action\Actions\RichListsPerProject();
                     }
                 }
             }

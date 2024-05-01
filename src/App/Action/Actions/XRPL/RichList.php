@@ -24,6 +24,7 @@ class RichList extends BaseAction
             if (!$countsPerWallet) {
                 $countsPerWallet = $service->getCountsPerWallet();
             }
+            $this->setVariable(new Variable('user', $user));
             $this->setVariable(new Variable('countsPerWallet', $countsPerWallet));
             $this->setVariable(new Variable('collections', $service->getCountsPerWalletBluePrint()['collections']));
         } catch (\Exception $e) {

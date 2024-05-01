@@ -24,6 +24,7 @@ abstract class Configuration extends BaseObject
                 'home',
                 'richlist',
                 'projects',
+                'richlists-per-project',
             ],
         ];
     }

@@ -16,6 +16,8 @@ class User extends BaseModel
 
     public string $password;
 
+    public string $projectSlug;
+
     public string $projectName;
 
     public string $token;
@@ -52,6 +54,7 @@ class User extends BaseModel
         }
         $user->email = Arr::get($values, 'email');
         $user->password = Arr::get($values, 'password');
+        $user->projectSlug = Arr::get($values, 'project_slug');
         $user->projectName = Arr::get($values, 'project_name');
         $user->token = Arr::get($values, 'token');
         if ($tokenExpiresAt = Arr::get($values, 'token_expires_at')) {
@@ -81,6 +84,7 @@ class User extends BaseModel
         }
         $array['email'] = $this->email;
         $array['password'] = $this->password;
+        $array['project_slug'] = $this->projectSlug;
         $array['project_name'] = $this->projectName;
         $array['token'] = $this->token;
         $array['token_expires_at'] = $this->tokenExpiresAt;

@@ -45,7 +45,7 @@ class Html extends BaseAction
                 $this->setVariable(new Variable('cssRules',null));
             }
         } catch (\Exception $e) {
-            $projectName = $project; // @todo replace
+            $projectName = $user->projectName;
             echo 'RichList for ' . $projectName . ' almost ready, try again later.';
             exit;
         }

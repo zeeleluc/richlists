@@ -15,7 +15,8 @@ class RichList extends BaseAction
         $this->setView('website/richlist');
 
         $project = $this->getRequest()->getParam('project');
-        $projectName = $project; // @todo replace
+        $user = $this->getUserQuery()->getUserByProject($project);
+        $projectName = $user->projectName;
 
         try {
             $service = new CalcRichListService($project);

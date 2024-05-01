@@ -36,7 +36,7 @@ class Json extends BaseAction
             echo $json;
             exit;
         } catch (\Exception $e) {
-            $projectName = $project; // @todo replace
+            $projectName = $user->projectName;
             $response = [
                 'error' => 'RichList for ' . $projectName . ' almost ready, try again later.',
             ];

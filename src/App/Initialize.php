@@ -92,17 +92,11 @@ class Initialize extends BaseObject
 
         if ($get['action'] === 'project') {
             foreach ($this->getUserQuery()->getAll() as $user) {
-                if ($user->projectName === $get['project']) {
+                if ($user->projectSlug === $get['project']) {
                     if ($get['chain'] === 'xrpl') {
                         return new Action\Actions\XRPL\RichList();
                     }
                 }
-            }
-        }
-        // check if this is a request for a richlist
-        foreach ($this->getUserQuery()->getAll() as $user) {
-            if ($user->projectName === $get['action']) {
-                return new Action\Actions\XRPL\RichList();
             }
         }
 

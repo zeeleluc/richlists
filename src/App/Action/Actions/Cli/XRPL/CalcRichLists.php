@@ -35,7 +35,7 @@ class CalcRichLists extends BaseAction implements CliActionInterface
                 }
             }
 
-            $fileName = ROOT . '/data/richlists-cache/' . $project . '-' . self::CHAIN . '.json';
+            $fileName = ROOT . '/data/richlists-cache/' . $user->projectSlug . '-' . self::CHAIN . '.json';
             $result = file_put_contents($fileName, json_encode($countsPerWallet));
 
             if (!$result) {

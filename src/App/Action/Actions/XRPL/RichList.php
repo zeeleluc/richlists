@@ -24,13 +24,13 @@ class RichList extends BaseAction
             if (!$countsPerWallet) {
                 $countsPerWallet = $service->getCountsPerWallet();
             }
+            $this->setVariable(new Variable('countsPerWallet', $countsPerWallet));
+            $this->setVariable(new Variable('collections', $service->getCountsPerWalletBluePrint()['collections']));
         } catch (\Exception $e) {
             abort('RichList for ' . $projectName . ' almost ready, try again later.', 'danger');
         }
 
         $this->setVariable(new Variable('projectName', $projectName));
-        $this->setVariable(new Variable('countsPerWallet', $countsPerWallet));
-        $this->setVariable(new Variable('collections', $service->getCountsPerWalletBluePrint()['collections']));
     }
 
     public function run()

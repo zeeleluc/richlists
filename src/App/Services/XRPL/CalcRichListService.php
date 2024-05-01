@@ -87,7 +87,6 @@ class CalcRichListService {
         }
 
         foreach ($user->getCollectionsForChain(self::CHAIN) as $collection) {
-            echo ' - ' . $collection->name . PHP_EOL;
             $issuer = $collection->config['issuer'];
             $taxon = $collection->config['taxon'] ?? null;
             $countResults = $this->blockchainTokenQuery->getResultsPerOwner(
@@ -104,7 +103,6 @@ class CalcRichListService {
                     $countResult['total_nfts']
                 );
             }
-            echo ' --- end of loop' . PHP_EOL;
         }
 
         uasort($this->countsPerWallet, function($a, $b) {

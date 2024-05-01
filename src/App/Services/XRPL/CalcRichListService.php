@@ -93,9 +93,11 @@ class CalcRichListService {
                 $this->getTableNFTs($issuer, $taxon)
             );
 
+            $countsPerWalletBluePrint = $this->createCountsPerWalletBluePrint();
+
             foreach ($countResults as $countResult) {
                 if (!array_key_exists($countResult['owner'], $this->countsPerWallet)) {
-                    $this->countsPerWallet[$countResult['owner']] = $this->createCountsPerWalletBluePrint();
+                    $this->countsPerWallet[$countResult['owner']] = $countsPerWalletBluePrint;
                 }
                 $this->handleCountForCollectionPerWallet(
                     $countResult['owner'],

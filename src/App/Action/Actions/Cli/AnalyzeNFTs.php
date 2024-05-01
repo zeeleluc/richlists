@@ -2,38 +2,42 @@
 namespace App\Action\Actions\Cli;
 
 use App\Action\BaseAction;
-use App\RichList\Config;
+use App\Query\CollectionQuery;
 use App\Slack;
 use Carbon\Carbon;
 
 class AnalyzeNFTs extends BaseAction implements CliActionInterface
 {
-    private Config $config;
+    private CollectionQuery $collectionQuery;
 
     private Slack $slack;
 
     public function __construct()
     {
-        $this->config = new Config();
+        $this->collectionQuery = new CollectionQuery();
         $this->slack = new Slack();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function run()
     {
-        foreach ($this->config->getProjectsIssuerTaxon() as $project => $collections) {
-            foreach ($collections as $collection) {
-                $tableNameNFTs = $this->getTableNFTs($collection['issuer'], $collection['taxon']);
-                $oldestCreatedAt = Carbon::parse($this->getBlockchainTokenQuery()->getOldestRecord($tableNameNFTs)['created_at']);
-                $newestCreatedAt = Carbon::parse($this->getBlockchainTokenQuery()->getNewestRecord($tableNameNFTs)['created_at']);
+        foreach ($this->collectionQuery->getAllForChain('xrpl') as $collection) {
+            $issuer = $collection->config['issuer'];
+            $taxon = $collection->config['taxon'] ?? null;
 
-                $diffInSeconds = $oldestCreatedAt->diffInSeconds($newestCreatedAt);
-                $tenMinutesInSeconds = 60 * 10;
+            $tableNameNFTs = $this->getTableNFTs($issuer, $taxon);
+            $oldestCreatedAt = Carbon::parse($this->getBlockchainTokenQuery()->getOldestRecord($tableNameNFTs)['created_at']);
+            $newestCreatedAt = Carbon::parse($this->getBlockchainTokenQuery()->getNewestRecord($tableNameNFTs)['created_at']);
 
-                if ($diffInSeconds > $tenMinutesInSeconds) {
-                    $text = 'Diff between oldest and newest record for `' . $collection['name'] . '` is more than 10 minutes.';
-                    $slack = new Slack();
-                    $slack->sendErrorMessage($text);
-                }
+            $diffInSeconds = $oldestCreatedAt->diffInSeconds($newestCreatedAt);
+            $tenMinutesInSeconds = 60 * 10;
+
+            if ($diffInSeconds > $tenMinutesInSeconds) {
+                $text = 'Diff between oldest and newest record for `' . $collection->name . '` is more than 10 minutes.';
+                $slack = new Slack();
+                $slack->sendErrorMessage($text);
             }
         }
     }
@@ -41,9 +45,9 @@ class AnalyzeNFTs extends BaseAction implements CliActionInterface
     private function getTableNFTs(string $issuer, int $taxon = null)
     {
         if ($taxon) {
-            return $issuer . '_' . $taxon . '_nfts';
+            return 'xrpl_' . $issuer . '_' . $taxon . '_nfts';
         }
 
-        return $issuer . '_nfts';
+        return 'xrpl_' . $issuer . '_nfts';
     }
 }

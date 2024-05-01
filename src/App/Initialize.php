@@ -79,17 +79,17 @@ class Initialize extends BaseObject
         }
 
         if ($get['action'] === 'json') {
-            return new Action\Actions\Json();
+            return new Action\Actions\XRPL\Json();
         }
 
         if ($get['action'] === 'html') {
-            return new Action\Actions\Html();
+            return new Action\Actions\XRPL\Html();
         }
 
         // check if this is a request for a richlist
         foreach ($this->getUserQuery()->getAll() as $user) {
             if ($user->projectName === $get['action']) {
-                return new \App\Action\Actions\RichList();
+                return new Action\Actions\XRPL\RichList();
             }
         }
 

@@ -1,10 +1,10 @@
 <?php
-namespace App\Action\Actions\Cli;
+namespace App\Action\Actions\Cli\XRPL;
 
+use App\Action\Actions\Cli\CliActionInterface;
 use App\Action\BaseAction;
 use App\Blockchain\XRPL\NFTsByIssuerRequest;
 use App\Blockchain\XRPL\NFTsByIssuerResponse;
-use App\Query\CollectionQuery;
 use App\Slack;
 use GuzzleHttp\Exception\GuzzleException;
 use Hardcastle\XRPL_PHP\Client\JsonRpcClient;
@@ -14,15 +14,12 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
 {
     private const CHAIN = 'xrpl';
 
-    private CollectionQuery $collectionQuery;
-
     private JsonRpcClient $client;
 
     private Slack $slack;
 
     public function __construct()
     {
-        $this->collectionQuery = new CollectionQuery();
         $this->client = new JsonRpcClient(env('CLIO_SERVER'));
         $this->slack = new Slack();
     }
@@ -43,7 +40,7 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
     {
         $collectionsDoneByIssuerTaxon = [];
 
-        foreach ($this->collectionQuery->getAllForChain(self::CHAIN) as $collection) {
+        foreach ($this->getCollectionQuery()->getAllForChain(self::CHAIN) as $collection) {
             $this->slack->sendInfoMessage('Starting with ' . $collection->name . '...');
 
             $issuer = $collection->config['issuer'];
@@ -102,7 +99,7 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
 
     private function handleTables()
     {
-        foreach ($this->collectionQuery->getAll() as $collection) {
+        foreach ($this->getCollectionQuery()->getAll() as $collection) {
             $issuer = $collection->config['issuer'];
             $taxon = $collection->config['taxon'] ?? null;
 

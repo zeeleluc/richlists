@@ -11,7 +11,7 @@
             <div class="col col-12 col-xs-12 col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <h2><?=\App\RichList\Config::mapProjectNameSlug($user->projectName); ?></h2>
+                        <h2><?=$user->projectName; ?></h2>
                     </div>
                     <div class="card-body">
                         <?php foreach ($user->getCollections() as $collection): /* @var $collection \App\Models\Collection */ ?>

@@ -103,16 +103,6 @@ class User extends BaseModel
         return $array;
     }
 
-    public function getByEmail(string $email): User
-    {
-        return $this->fromArray($this->getQueryObject()->getUserByEmail($email));
-    }
-
-    public function getById(int $id): User
-    {
-        return $this->fromArray($this->getQueryObject()->getUserById($id));
-    }
-
     /**
      * @return array|Collection[]
      * @throws \Exception
@@ -122,6 +112,17 @@ class User extends BaseModel
         $collectionsQuery = new CollectionQuery();
 
         return $collectionsQuery->getCollectionsForUser($this);
+    }
+
+    /**
+     * @return array|Collection[]
+     * @throws \Exception
+     */
+    public function getCollectionsForChain(string $chain): array
+    {
+        $collectionsQuery = new CollectionQuery();
+
+        return $collectionsQuery->getCollectionsForUserByChain($this, $chain);
     }
 
     /**

@@ -1,13 +1,14 @@
 <?php
-namespace App\Action\Actions\Cli;
+namespace App\Action\Actions\Cli\XRPL;
 
+use App\Action\Actions\Cli\CliActionInterface;
 use App\Action\BaseAction;
-use App\Models\User;
-use App\RichList\Config;
-use App\RichList\Service;
+use App\Services\XRPL\CalcRichListService;
 
 class CalcRichLists extends BaseAction implements CliActionInterface
 {
+    private const CHAIN = 'xrpl';
+
     /**
      * @throws \Exception
      */
@@ -21,7 +22,7 @@ class CalcRichLists extends BaseAction implements CliActionInterface
                 continue;
             }
 
-            $countsPerWallet = (new Service($project))->getCountsPerWallet();
+            $countsPerWallet = (new CalcRichListService($project))->getCountsPerWallet();
 
             // filter out unwanted wallets for the rich list
             $unwantedWallets = env('WALLETS_IGNORE_' . strtoupper($project));
@@ -34,7 +35,7 @@ class CalcRichLists extends BaseAction implements CliActionInterface
                 }
             }
 
-            $fileName = ROOT . '/data/richlists-cache/' . $project . '.json';
+            $fileName = ROOT . '/data/richlists-cache/' . $project . '-' . self::CHAIN . '.json';
             $result = file_put_contents($fileName, json_encode($countsPerWallet));
 
             if (!$result) {

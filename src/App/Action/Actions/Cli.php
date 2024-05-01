@@ -1,10 +1,10 @@
 <?php
 namespace App\Action\Actions;
 
-use App\Action\Actions\Cli\AnalyzeNFTs;
-use App\Action\Actions\Cli\CalcRichLists;
 use App\Action\Actions\Cli\Migrate;
-use App\Action\Actions\Cli\UpdateDataNFT;
+use App\Action\Actions\Cli\XRPL\AnalyzeNFTs;
+use App\Action\Actions\Cli\XRPL\CalcRichLists;
+use App\Action\Actions\Cli\XRPL\UpdateDataNFT;
 use App\Action\BaseAction;
 
 class Cli extends BaseAction

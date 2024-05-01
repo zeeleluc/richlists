@@ -1,20 +1,19 @@
 <?php
-namespace App\Action\Actions\Cli;
+namespace App\Action\Actions\Cli\XRPL;
 
+use App\Action\Actions\Cli\CliActionInterface;
 use App\Action\BaseAction;
-use App\Query\CollectionQuery;
 use App\Slack;
 use Carbon\Carbon;
 
 class AnalyzeNFTs extends BaseAction implements CliActionInterface
 {
-    private CollectionQuery $collectionQuery;
+    private const CHAIN = 'xrpl';
 
     private Slack $slack;
 
     public function __construct()
     {
-        $this->collectionQuery = new CollectionQuery();
         $this->slack = new Slack();
     }
 
@@ -23,7 +22,7 @@ class AnalyzeNFTs extends BaseAction implements CliActionInterface
      */
     public function run()
     {
-        foreach ($this->collectionQuery->getAllForChain('xrpl') as $collection) {
+        foreach ($this->getCollectionQuery()->getAllForChain(self::CHAIN) as $collection) {
             $issuer = $collection->config['issuer'];
             $taxon = $collection->config['taxon'] ?? null;
 
@@ -45,9 +44,9 @@ class AnalyzeNFTs extends BaseAction implements CliActionInterface
     private function getTableNFTs(string $issuer, int $taxon = null)
     {
         if ($taxon) {
-            return 'xrpl_' . $issuer . '_' . $taxon . '_nfts';
+            return self::CHAIN . '_' . $issuer . '_' . $taxon . '_nfts';
         }
 
-        return 'xrpl_' . $issuer . '_nfts';
+        return self::CHAIN . '_' . $issuer . '_nfts';
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Query\CollectionQuery;
+use App\Query\UserQuery;
 use ArrayHelpers\Arr;
 use Carbon\Carbon;
 
@@ -38,7 +39,7 @@ class Collection extends BaseModel
         if ($id = Arr::get($values, 'id')) {
             $collection->id = $id;
         }
-        $collection->user = (new User())->getById(Arr::get($values, 'user_id'));
+        $collection->user = (new UserQuery())->getUserById(Arr::get($values, 'user_id'));
         $collection->chain = Arr::get($values, 'chain');
         $collection->name = Arr::get($values, 'name');
         $collection->config = (array) json_decode(Arr::get($values, 'config'), true);

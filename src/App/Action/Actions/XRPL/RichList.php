@@ -1,9 +1,8 @@
 <?php
-namespace App\Action\Actions;
+namespace App\Action\Actions\XRPL;
 
 use App\Action\BaseAction;
-use App\RichList\Config;
-use App\RichList\Service;
+use App\Services\XRPL\CalcRichListService;
 use App\Variable;
 
 class RichList extends BaseAction
@@ -16,10 +15,10 @@ class RichList extends BaseAction
         $this->setView('website/richlist');
 
         $project = $this->getRequest()->getParam('action');
-        $projectName = Config::mapProjectNameSlug($project);
+        $projectName = $project; // @todo replace
 
         try {
-            $service = new Service($project);
+            $service = new CalcRichListService($project);
             $countsPerWallet = $service->getCountsPerWalletFromCache();
             if (!$countsPerWallet) {
                 $countsPerWallet = $service->getCountsPerWallet();

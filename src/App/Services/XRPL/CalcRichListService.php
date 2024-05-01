@@ -1,12 +1,15 @@
 <?php
-namespace App\RichList;
+namespace App\Services\XRPL;
 
-use App\Action\Actions\Cli\CalcRichLists;
+use App\Action\Actions\Cli\XRPL\CalcRichLists;
 use App\Query\BlockchainTokenQuery;
+use App\Query\UserQuery;
 
-class Service {
+class CalcRichListService {
 
-    private array $config;
+    private const CHAIN = 'xrpl';
+
+    private UserQuery $userQuery;
 
     private BlockchainTokenQuery $blockchainTokenQuery;
 
@@ -14,9 +17,12 @@ class Service {
 
     private array $countsPerWalletBluePrint = [];
 
+    /**
+     * @throws \Exception
+     */
     public function __construct(readonly private string $project)
     {
-        $this->config = (new Config())->getProjectsIssuerTaxon();
+        $this->userQuery = new UserQuery();
         $this->blockchainTokenQuery = new BlockchainTokenQuery();
         $this->countsPerWalletBluePrint = $this->createCountsPerWalletBluePrint();
     }
@@ -26,27 +32,37 @@ class Service {
         return $this->countsPerWalletBluePrint;
     }
 
+    /**
+     * @throws \Exception
+     */
     private function createCountsPerWalletBluePrint(): array
     {
         $array = [];
         $array['total'] = 0;
         $array['collections'] = [];
 
-        foreach ($this->config[$this->project] as $collection) {
+        $collections = $this->userQuery->getUserByProject($this->project)->getCollectionsForChain(self::CHAIN);
+        foreach ($collections as $collection) {
+            $issuer = $collection->config['issuer'];
+            $taxon = $collection->config['taxon'] ?? null;
+
             $prepareCollection = [
-                'issuer' => $collection['issuer'],
-                'taxon' => $collection['taxon'],
+                'issuer' => $issuer,
+                'taxon' => $taxon,
                 'total' => 0,
             ];
-            $array['collections'][$collection['name']] = $prepareCollection;
+            $array['collections'][$collection->name] = $prepareCollection;
         }
 
         return $array;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function getCountsPerWalletFromCache(): bool|array
     {
-        $jsonFile = './data/richlists-cache/' . $this->project . '.json';
+        $jsonFile = './data/richlists-cache/' . $this->project . '-' . self::CHAIN . '.json';
         if (!file_exists($jsonFile)) {
             $calcRichLists = new CalcRichLists();
             $calcRichLists->run($this->project);
@@ -60,18 +76,22 @@ class Service {
         return false;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function getCountsPerWallet(): array
     {
-        if (!array_key_exists($this->project, $this->config)) {
+        $user = $this->userQuery->getUserByProject($this->project);
+        if (!$user) {
             return [];
         }
 
-        foreach ($this->config[$this->project] as $collection) {
+        foreach ($user->getCollectionsForChain(self::CHAIN) as $collection) {
+            echo ' - ' . $collection->name . PHP_EOL;
+            $issuer = $collection->config['issuer'];
+            $taxon = $collection->config['taxon'] ?? null;
             $countResults = $this->blockchainTokenQuery->getResultsPerOwner(
-                $this->getTableNFTs(
-                    $collection['issuer'],
-                    $collection['taxon']
-                )
+                $this->getTableNFTs($issuer, $taxon)
             );
 
             foreach ($countResults as $countResult) {
@@ -80,10 +100,11 @@ class Service {
                 }
                 $this->handleCountForCollectionPerWallet(
                     $countResult['owner'],
-                    $collection['name'],
+                    $collection->name,
                     $countResult['total_nfts']
                 );
             }
+            echo ' --- end of loop' . PHP_EOL;
         }
 
         uasort($this->countsPerWallet, function($a, $b) {
@@ -96,10 +117,10 @@ class Service {
     private function getTableNFTs(string $issuer, int $taxon = null)
     {
         if ($taxon) {
-            return $issuer . '_' . $taxon . '_nfts';
+            return self::CHAIN . '_' . $issuer . '_' . $taxon . '_nfts';
         }
 
-        return $issuer . '_nfts';
+        return self::CHAIN . '_' . $issuer . '_nfts';
     }
 
     private function handleCountForCollectionPerWallet(

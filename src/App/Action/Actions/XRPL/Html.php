@@ -1,9 +1,9 @@
 <?php
-namespace App\Action\Actions;
+namespace App\Action\Actions\XRPL;
 
 use App\Action\BaseAction;
 use App\RichList\Config;
-use App\RichList\Service;
+use App\Services\XRPL\Service;
 use App\Variable;
 
 class Html extends BaseAction
@@ -44,7 +44,7 @@ class Html extends BaseAction
                 $this->setVariable(new Variable('cssRules',null));
             }
         } catch (\Exception $e) {
-            $projectName = Config::mapProjectNameSlug($project);
+            $projectName = $project; // @todo replace
             echo 'RichList for ' . $projectName . ' almost ready, try again later.';
             exit;
         }

@@ -1,9 +1,9 @@
 <?php
-namespace App\Action\Actions;
+namespace App\Action\Actions\XRPL;
 
 use App\Action\BaseAction;
 use App\RichList\Config;
-use App\RichList\Service;
+use App\Services\XRPL\Service;
 
 class Json extends BaseAction
 {
@@ -35,7 +35,7 @@ class Json extends BaseAction
             echo $json;
             exit;
         } catch (\Exception $e) {
-            $projectName = Config::mapProjectNameSlug($project);
+            $projectName = $project; // @todo replace
             $response = [
                 'error' => 'RichList for ' . $projectName . ' almost ready, try again later.',
             ];

@@ -54,11 +54,30 @@ class UserQuery extends Query
             ->getOne($this->table);
     }
 
-    public function getUserById(int $id): array
+    public function getUserById(int $id): ?User
     {
-        return $this->db
+        $results = $this->db
             ->where('id', $id)
             ->getOne($this->table);
+
+        if ($results) {
+            return (new User())->fromArray($results);
+        }
+
+        return null;
+    }
+
+    public function getUserByProject(string $project): ?User
+    {
+        $results = $this->db
+            ->where('project_name', $project)
+            ->getOne($this->table);
+
+        if ($results) {
+            return (new User())->fromArray($results);
+        }
+
+        return null;
     }
 
     public function doesProjectExist(string $projectName): bool

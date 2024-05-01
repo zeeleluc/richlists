@@ -2,8 +2,7 @@
 namespace App\Action\Actions\XRPL;
 
 use App\Action\BaseAction;
-use App\RichList\Config;
-use App\Services\XRPL\Service;
+use App\Services\XRPL\CalcRichListService;
 
 class Json extends BaseAction
 {
@@ -25,7 +24,7 @@ class Json extends BaseAction
         }
 
         try {
-            $service = new Service($project);
+            $service = new CalcRichListService($project);
             $countsPerWallet = $service->getCountsPerWalletFromCache();
             if (!$countsPerWallet) {
                 $countsPerWallet = $service->getCountsPerWallet();

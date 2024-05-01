@@ -2,8 +2,7 @@
 namespace App\Action\Actions\XRPL;
 
 use App\Action\BaseAction;
-use App\RichList\Config;
-use App\Services\XRPL\Service;
+use App\Services\XRPL\CalcRichListService;
 use App\Variable;
 
 class Html extends BaseAction
@@ -23,7 +22,7 @@ class Html extends BaseAction
         }
 
         try {
-            $service = new Service($project);
+            $service = new CalcRichListService($project);
             $countsPerWallet = $service->getCountsPerWalletFromCache();
             if (!$countsPerWallet) {
                 $countsPerWallet = $service->getCountsPerWallet();

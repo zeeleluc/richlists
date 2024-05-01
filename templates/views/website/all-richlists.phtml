@@ -7,19 +7,19 @@
         </div>
     </div>
     <div class="row">
-        <?php foreach ($projects as $project => $collections): ?>
+        <?php foreach ($users as $user): /* @var $user \App\Models\User */ ?>
             <div class="col col-12 col-xs-12 col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <h2><?=\App\RichList\Config::mapProjectNameSlug($project); ?></h2>
+                        <h2><?=\App\RichList\Config::mapProjectNameSlug($user->projectName); ?></h2>
                     </div>
                     <div class="card-body">
-                        <?php foreach ($collections as $collection): ?>
-                            <?=$collection['name']; ?><br />
+                        <?php foreach ($user->getCollections() as $collection): /* @var $collection \App\Models\Collection */ ?>
+                            <?=$collection->name; ?><br />
                         <?php endforeach; ?>
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-primary" href="<?=env('URL'); ?>/<?=$project; ?>">
+                        <a class="btn btn-primary" href="<?=env('URL'); ?>/<?=$user->projectName; ?>">
                             Go To RichList
                         </a>
                     </div>

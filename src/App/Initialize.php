@@ -87,9 +87,10 @@ class Initialize extends BaseObject
         }
 
         // check if this is a request for a richlist
-        $projects = array_column($this->getUserQuery()->getAll(), 'project_name');
-        if (in_array($get['action'], $projects)) {
-            return new \App\Action\Actions\RichList();
+        foreach ($this->getUserQuery()->getAll() as $user) {
+            if ($user->projectName === $get['action']) {
+                return new \App\Action\Actions\RichList();
+            }
         }
 
         throw new \Exception('Page not found.');

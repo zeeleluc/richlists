@@ -14,7 +14,7 @@ class AllRichLists extends BaseAction
         $this->setLayout('default');
         $this->setView('website/all-richlists');
 
-        $this->setVariable(new Variable('projects', (new Config())->getProjectsIssuerTaxon()));
+        $this->setVariable(new Variable('users', $this->getUserQuery()->getAll()));
     }
 
     public function run()

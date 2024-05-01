@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Query\CollectionQuery;
-use App\Query\UserQuery;
 use ArrayHelpers\Arr;
 use Carbon\Carbon;
 

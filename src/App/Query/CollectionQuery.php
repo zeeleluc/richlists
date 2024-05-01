@@ -38,9 +38,16 @@ class CollectionQuery extends Query
 
     public function getCollectionsForUser(User $user): array
     {
-        return $this->db
+        $results = $this->db
             ->where('user_id', $user->id)
             ->get($this->table);
+
+        $collections = [];
+        foreach ($results as $result) {
+            $collections[] = (new Collection())->fromArray($result);
+        }
+
+        return $collections;
     }
 
     public function getCollectionByChainAndNameAndUser(string $chain, string $name, int $userId): array

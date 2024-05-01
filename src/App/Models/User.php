@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Query\CollectionQuery;
 use App\Query\UserQuery;
 use ArrayHelpers\Arr;
 use Carbon\Carbon;
@@ -113,12 +114,14 @@ class User extends BaseModel
     }
 
     /**
-     * @return array|User[]
+     * @return array|Collection[]
      * @throws \Exception
      */
     public function getCollections(): array
     {
-        return $this->getQueryObject()->getAll();
+        $collectionsQuery = new CollectionQuery();
+
+        return $collectionsQuery->getCollectionsForUser($this);
     }
 
     /**

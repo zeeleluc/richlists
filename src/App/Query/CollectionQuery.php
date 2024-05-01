@@ -36,6 +36,40 @@ class CollectionQuery extends Query
         return $collection;
     }
 
+    /**
+     * @return array|Collection[]
+     * @throws \Exception
+     */
+    public function getAll(): array
+    {
+        $results = $this->db->get($this->table);
+
+        $collections = [];
+        foreach ($results as $result) {
+            $collections[] = (new Collection())->fromArray($result);
+        }
+
+        return $collections;
+    }
+
+    /**
+     * @return array|Collection[]
+     * @throws \Exception
+     */
+    public function getAllForChain(string $chain): array
+    {
+        $results = $this->db
+            ->where('chain', $chain)
+            ->get($this->table);
+
+        $collections = [];
+        foreach ($results as $result) {
+            $collections[] = (new Collection())->fromArray($result);
+        }
+
+        return $collections;
+    }
+
     public function getCollectionsForUser(User $user): array
     {
         $results = $this->db

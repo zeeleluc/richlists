@@ -79,11 +79,15 @@ class Initialize extends BaseObject
         }
 
         if ($get['action'] === 'json') {
-            return new Action\Actions\XRPL\Json();
+            if (isset($get['chain']) && $get['chain'] === 'xrpl') {
+                return new Action\Actions\XRPL\Json();
+            }
         }
 
         if ($get['action'] === 'html') {
-            return new Action\Actions\XRPL\Html();
+            if (isset($get['chain']) && $get['chain'] === 'xrpl') {
+                return new Action\Actions\XRPL\Html();
+            }
         }
 
         // check if this is a request for a richlist

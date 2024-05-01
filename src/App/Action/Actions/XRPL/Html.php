@@ -14,9 +14,11 @@ class Html extends BaseAction
         $this->setLayout('async');
         $this->setView('terminal/html');
 
+        $project = $this->getRequest()->getParam('project');
         $key = $this->getRequest()->getParam('api');
-        $project = env('API_' . $key);
-        if (!$project) {
+        $user = $this->getUserQuery()->getUserByProject($project);
+
+        if ($key !== $user->token) {
             echo 'RichList not found.';
             exit;
         }

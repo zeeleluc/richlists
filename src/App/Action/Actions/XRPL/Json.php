@@ -13,9 +13,11 @@ class Json extends BaseAction
         header('Content-Type: application/json');
         $this->setTerminal(true);
 
+        $project = $this->getRequest()->getParam('project');
         $key = $this->getRequest()->getParam('api');
-        $project = env('API_' . $key);
-        if (!$project) {
+        $user = $this->getUserQuery()->getUserByProject($project);
+
+        if ($key !== $user->token) {
             $response = [
                 'error' => 'RichList not found.',
             ];

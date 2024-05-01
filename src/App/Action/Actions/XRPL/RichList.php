@@ -14,7 +14,7 @@ class RichList extends BaseAction
         $this->setLayout('default');
         $this->setView('website/richlist');
 
-        $project = $this->getRequest()->getParam('action');
+        $project = $this->getRequest()->getParam('project');
         $projectName = $project; // @todo replace
 
         try {

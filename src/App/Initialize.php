@@ -74,8 +74,8 @@ class Initialize extends BaseObject
             return new \App\Action\Actions\Home();
         }
 
-        if ($get['action'] === 'all-richlists') {
-            return new Action\Actions\AllRichLists();
+        if ($get['action'] === 'projects') {
+            return new Action\Actions\Projects();
         }
 
         if ($get['action'] === 'json') {
@@ -90,6 +90,15 @@ class Initialize extends BaseObject
             }
         }
 
+        if ($get['action'] === 'project') {
+            foreach ($this->getUserQuery()->getAll() as $user) {
+                if ($user->projectName === $get['project']) {
+                    if ($get['chain'] === 'xrpl') {
+                        return new Action\Actions\XRPL\RichList();
+                    }
+                }
+            }
+        }
         // check if this is a request for a richlist
         foreach ($this->getUserQuery()->getAll() as $user) {
             if ($user->projectName === $get['action']) {

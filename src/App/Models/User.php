@@ -125,6 +125,11 @@ class User extends BaseModel
         return $collectionsQuery->getCollectionsForUserByChain($this, $chain);
     }
 
+    public function hasCollectionsOnChain(string $chain): bool
+    {
+        return (bool) $this->getCollectionsForChain($chain);
+    }
+
     /**
      * @throws \Exception
      */

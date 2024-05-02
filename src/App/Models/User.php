@@ -143,7 +143,7 @@ class User extends BaseModel
             throw new \Exception('Project `' . $this->projectName . '` exists!');
         }
 
-        return $this->getQueryObject()->createNewUser($this->toArray($this));
+        return $this->getQueryObject()->createNewUser($this->toArray());
     }
 
     public function update()

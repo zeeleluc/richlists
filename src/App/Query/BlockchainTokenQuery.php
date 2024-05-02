@@ -6,19 +6,19 @@ use Carbon\Carbon;
 class BlockchainTokenQuery extends Query
 {
 
-    public function hasNFT(string $table, string $nftID): bool
+    public function hasNFT(string $table, string $column, string $value): bool
     {
         return (bool) $this->db
-            ->where('nft_id', $nftID)
+            ->where($column, $value)
             ->get($table);
     }
 
-    public function insertNFTdata(string $table, array $params): bool
+    public function insertNFTdata(string $table, array $params, string $whereColumn, string $whereValue): bool
     {
-        if ($this->hasNFT($table, $params['nft_id'])) {
+        if ($this->hasNFT($table, $whereColumn, $whereValue)) {
             $params['updated_at'] = Carbon::now()->format('Y-m-d H:i:s');
             return $this->db
-                ->where('nft_id', $params['nft_id'])
+                ->where($whereColumn, $whereValue)
                 ->update($table, $params);
         } else {
             return $this->db->insert($table, $params);
@@ -30,10 +30,10 @@ class BlockchainTokenQuery extends Query
         return $this->db->tableExists([$tableName]);
     }
 
-    public function getResultsPerOwner(string $table): array
+    public function getResultsPerOwner(string $table, string $groupByColumn): array
     {
         $sql = <<<SQL
-SELECT owner, COUNT(*) AS total_nfts FROM {$table} GROUP BY owner;
+SELECT {$groupByColumn}, COUNT(*) AS total_nfts FROM {$table} GROUP BY {$groupByColumn};
 SQL;
 
         return $this->db->rawQuery($sql);
@@ -74,7 +74,7 @@ SQL;
         return $this->db->rawQuery($sql);
     }
 
-    public function createTableNFTs(string $tableName)
+    public function createTableNFTsXRPL(string $tableName)
     {
         $sql = <<<SQL
 CREATE TABLE {$tableName} (
@@ -91,6 +91,36 @@ CREATE TABLE {$tableName} (
     nft_serial integer(6) NOT NULL,
     created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at datetime NULL
+);
+SQL;
+
+        return $this->db->rawQuery($sql);
+    }
+    
+    public function createTableNFTsEthereum(string $tableName)
+    {
+        $sql = <<<SQL
+CREATE TABLE {$tableName} (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    amount INT,
+    token_id INT,
+    token_address VARCHAR(42),
+    contract_type VARCHAR(10),
+    owner_of VARCHAR(42),
+    last_metadata_sync VARCHAR(24),
+    last_token_uri_sync VARCHAR(24),
+    metadata TEXT,
+    block_number INT,
+    block_number_minted INT,
+    name VARCHAR(255),
+    symbol VARCHAR(10),
+    token_hash VARCHAR(32),
+    token_uri VARCHAR(255),
+    minter_address VARCHAR(42),
+    verified_collection BOOLEAN,
+    possible_spam BOOLEAN,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 SQL;
 

@@ -1,6 +1,7 @@
 <?php
 namespace App\Action\Actions\Cli;
 
+use App\Action\Actions\Cli\Interfaces\CliActionInterface;
 use App\Action\BaseAction;
 use App\Query\MigrationQuery;
 

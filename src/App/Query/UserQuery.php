@@ -23,12 +23,7 @@ class UserQuery extends Query
             throw new \Exception('User not created.');
         }
 
-        $values = $this->getUserByEmail(Arr::get($values, 'email'));
-
-        $user = new User();
-        $user->fromArray($values);
-
-        return $user;
+        return $this->getUserByEmail(Arr::get($values, 'email'));
     }
 
     /**
@@ -47,11 +42,14 @@ class UserQuery extends Query
         return $users;
     }
 
-    public function getUserByEmail(string $email): array
+    public function getUserByEmail(string $email): User
     {
-        return $this->db
+        $values = $this->db
             ->where('email', $email)
             ->getOne($this->table);
+
+        $user = new User();
+        return $user->fromArray($values);
     }
 
     public function getUserById(int $id): ?User

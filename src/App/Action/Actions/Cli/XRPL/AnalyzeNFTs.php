@@ -1,7 +1,7 @@
 <?php
 namespace App\Action\Actions\Cli\XRPL;
 
-use App\Action\Actions\Cli\CliActionInterface;
+use App\Action\Actions\Cli\Interfaces\CliActionInterface;
 use App\Action\BaseAction;
 use App\Slack;
 use Carbon\Carbon;

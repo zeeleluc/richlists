@@ -1,13 +1,13 @@
 <?php
-namespace App\Services\XRPL;
+namespace App\Services\Ethereum;
 
-use App\Action\Actions\Cli\XRPL\CalcRichLists;
+use App\Action\Actions\Cli\Ethereum\CalcRichLists;
 use App\Query\BlockchainTokenQuery;
 use App\Query\UserQuery;
 
 class CalcRichListService {
 
-    private const CHAIN = 'xrpl';
+    private const CHAIN = 'ethereum';
 
     private UserQuery $userQuery;
 
@@ -43,12 +43,10 @@ class CalcRichListService {
 
         $collections = $this->userQuery->getUserByProject($this->project)->getCollectionsForChain(self::CHAIN);
         foreach ($collections as $collection) {
-            $issuer = $collection->config['issuer'];
-            $taxon = $collection->config['taxon'] ?? null;
+            $contract = $collection->config['$contract'];
 
             $prepareCollection = [
-                'issuer' => $issuer,
-                'taxon' => $taxon,
+                'contract' => $contract,
                 'total' => 0,
             ];
             $array['collections'][$collection->name] = $prepareCollection;
@@ -87,21 +85,20 @@ class CalcRichListService {
         }
 
         foreach ($user->getCollectionsForChain(self::CHAIN) as $collection) {
-            $issuer = $collection->config['issuer'];
-            $taxon = $collection->config['taxon'] ?? null;
+            $contract = $collection->config['contract'];
             $countResults = $this->blockchainTokenQuery->getResultsPerOwner(
-                $this->getTableNFTs($issuer, $taxon),
-                'owner'
+                $this->getTableNFTs($contract),
+                'owner_of'
             );
 
             $countsPerWalletBluePrint = $this->createCountsPerWalletBluePrint();
 
             foreach ($countResults as $countResult) {
-                if (!array_key_exists($countResult['owner'], $this->countsPerWallet)) {
-                    $this->countsPerWallet[$countResult['owner']] = $countsPerWalletBluePrint;
+                if (!array_key_exists($countResult['owner_of'], $this->countsPerWallet)) {
+                    $this->countsPerWallet[$countResult['owner_of']] = $countsPerWalletBluePrint;
                 }
                 $this->handleCountForCollectionPerWallet(
-                    $countResult['owner'],
+                    $countResult['owner_of'],
                     $collection->name,
                     $countResult['total_nfts']
                 );
@@ -121,13 +118,9 @@ class CalcRichListService {
         return $this->countsPerWallet;
     }
 
-    private function getTableNFTs(string $issuer, int $taxon = null)
+    private function getTableNFTs(string $contract)
     {
-        if ($taxon) {
-            return self::CHAIN . '_' . $issuer . '_' . $taxon . '_nfts';
-        }
-
-        return self::CHAIN . '_' . $issuer . '_nfts';
+        return self::CHAIN . '_' . $contract . '_nfts';
     }
 
     private function handleCountForCollectionPerWallet(

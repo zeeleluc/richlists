@@ -1,7 +1,9 @@
 <?php
 namespace App\Action\Actions\Cli\XRPL;
 
-use App\Action\Actions\Cli\CliActionInterface;
+use App\Action\Actions\Cli\Interfaces\CliActionInterface;
+use App\Action\Actions\Cli\Interfaces\UpdateDataNFTInterface;
+use App\Action\Actions\Cli\Traits\UpdateDataNFTTrait;
 use App\Action\BaseAction;
 use App\Blockchain\XRPL\NFTsByIssuerRequest;
 use App\Blockchain\XRPL\NFTsByIssuerResponse;
@@ -10,8 +12,12 @@ use GuzzleHttp\Exception\GuzzleException;
 use Hardcastle\XRPL_PHP\Client\JsonRpcClient;
 use Hardcastle\XRPL_PHP\Models\ErrorResponse;
 
-class UpdateDataNFT extends BaseAction implements CliActionInterface
+class UpdateDataNFT extends BaseAction implements
+    CliActionInterface,
+    UpdateDataNFTInterface
 {
+    use UpdateDataNFTTrait;
+
     private const CHAIN = 'xrpl';
 
     private JsonRpcClient $client;
@@ -77,7 +83,9 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
                             foreach ($results as $nftData) {
                                 $this->getBlockchainTokenQuery()->insertNFTdata(
                                     $tableNameNFTs,
-                                    $nftData
+                                    $nftData,
+                                    'nft_id',
+                                    $nftData['nft_id']
                                 );
                             }
                         }
@@ -97,25 +105,16 @@ class UpdateDataNFT extends BaseAction implements CliActionInterface
         }
     }
 
-    private function handleTables()
+    public function handleTables()
     {
-        foreach ($this->getCollectionQuery()->getAll() as $collection) {
+        foreach ($this->getCollectionQuery()->getAllForChain(self::CHAIN) as $collection) {
             $issuer = $collection->config['issuer'];
             $taxon = $collection->config['taxon'] ?? null;
 
             $tableNameNFTs = $this->getTableNFTs($issuer, $taxon);
             if (!$this->getBlockchainTokenQuery()->hasTable($tableNameNFTs)) {
-                $this->getBlockchainTokenQuery()->createTableNFTs($tableNameNFTs);
+                $this->getBlockchainTokenQuery()->createTableNFTsXRPL($tableNameNFTs);
             }
         }
-    }
-
-    private function getTableNFTs(string $issuer, int $taxon = null)
-    {
-        if ($taxon) {
-            return self::CHAIN . '_' . $issuer . '_' . $taxon . '_nfts';
-        }
-
-        return self::CHAIN . '_' . $issuer . '_nfts';
     }
 }

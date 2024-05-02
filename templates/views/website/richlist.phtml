@@ -2,10 +2,37 @@
     <div class="row justify-content-center">
         <div class="col col-10">
             <h1>
-                <a href="<?=env('URL'); ?>/project/<?=$user->projectSlug; ?>"><?=$projectName; ?></a> RichList XRPL
+                <a href="<?=env('URL'); ?>/project/<?=$user->projectSlug; ?>"><?=$projectName; ?></a> RichList on <?=$chain; ?>
             </h1>
         </div>
     </div>
+
+    <ul class="nav nav-tabs">
+        <?php if ($user->hasCollectionsOnChain('xrpl')): ?>
+            <li class="nav-item">
+                <a
+                    href="<?=env('URL'); ?>/project/<?=$user->projectSlug; ?>/xrpl"
+                    class="nav-link <?=(strtolower($chain) === 'xrpl' ? 'active' : ''); ?>"
+                    aria-current="page"
+                >
+                    XRPL
+                </a>
+            </li>
+        <?php endif; ?>
+        <?php if ($user->hasCollectionsOnChain('ethereum')): ?>
+            <li class="nav-item">
+                <a
+                    href="<?=env('URL'); ?>/project/<?=$user->projectSlug; ?>/ethereum"
+                    class="nav-link <?=(strtolower($chain) === 'ethereum' ? 'active' : ''); ?>"
+                    aria-current="page"
+                >
+                    Ethereum
+                </a>
+            </li>
+        <?php endif; ?>
+    </ul>
+
+
     <div class="row justify-content-center row-richlist">
         <div class="col col-12 col-xs-10">
             <div class="table-responsive">
@@ -13,7 +40,7 @@
                     <?php $index = 1; ?>
                     <?php foreach ($countsPerWallet as $wallet => $countPerWallet): ?>
                         <tr data-wallet="<?=$wallet; ?>">
-                            <td class="text-center">#<?=$index; ?></td>
+                            <td width="100px" class="text-center">#<?=$index; ?></td>
                             <td>
                                 <span class="wallet-full"><?=$wallet; ?></span>
                                 <span class="wallet-trimmed"><?=substr($wallet, 0, 16); ?>..</span>

@@ -6,6 +6,9 @@ use App\Variable;
 
 class Projects extends BaseAction
 {
+    /**
+     * @throws \Exception
+     */
     public function __construct()
     {
         parent::__construct();

@@ -1,13 +1,13 @@
 <?php
-namespace App\Action\Actions\Cli\XRPL;
+namespace App\Action\Actions\Cli\Ethereum;
 
 use App\Action\Actions\Cli\Interfaces\CliActionInterface;
 use App\Action\BaseAction;
-use App\Services\XRPL\CalcRichListService;
+use App\Services\Ethereum\CalcRichListService;
 
 class CalcRichLists extends BaseAction implements CliActionInterface
 {
-    private const CHAIN = 'xrpl';
+    private const CHAIN = 'ethereum';
 
     /**
      * @throws \Exception

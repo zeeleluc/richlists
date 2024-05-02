@@ -26,5 +26,24 @@
                 </div>
             </div>
         <?php endif; ?>
+        <?php if ($user->hasCollectionsOnChain('ethereum')): ?>
+            <div class="col col-12 col-xs-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Ethereum</h2>
+                    </div>
+                    <div class="card-body">
+                        <?php foreach ($user->getCollectionsForChain('ethereum') as $collection): ?>
+                            <?=$collection->name; ?><br />
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary" href="<?=env('URL'); ?>/project/<?=$user->projectSlug; ?>/ethereum">
+                            RichList
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>

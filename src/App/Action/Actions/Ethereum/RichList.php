@@ -1,8 +1,8 @@
 <?php
-namespace App\Action\Actions\XRPL;
+namespace App\Action\Actions\Ethereum;
 
 use App\Action\BaseAction;
-use App\Services\XRPL\CalcRichListService;
+use App\Services\Ethereum\CalcRichListService;
 use App\Variable;
 
 class RichList extends BaseAction
@@ -24,7 +24,7 @@ class RichList extends BaseAction
             if (!$countsPerWallet) {
                 $countsPerWallet = $service->getCountsPerWallet();
             }
-            $this->setVariable(new Variable('chain', 'XRPL'));
+            $this->setVariable(new Variable('chain', 'Ethereum'));
             $this->setVariable(new Variable('user', $user));
             $this->setVariable(new Variable('countsPerWallet', $countsPerWallet));
             $this->setVariable(new Variable('collections', $service->getCountsPerWalletBluePrint()['collections']));

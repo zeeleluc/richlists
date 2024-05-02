@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action\Actions\Cli;
+namespace App\Action\Actions\Cli\Interfaces;
 
 interface CliActionInterface
 {

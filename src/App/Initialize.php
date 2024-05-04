@@ -71,11 +71,15 @@ class Initialize extends BaseObject
         }
 
         if (false === isset($get['action']) || (true === isset($get['action']) && '' === $get['action'])) {
-            return new \App\Action\Actions\Home();
+            return new Action\Actions\Home();
         }
 
         if ($get['action'] === 'projects') {
             return new Action\Actions\Projects();
+        }
+
+        if ($get['action'] === 'register') {
+            return new Action\Actions\Register();
         }
 
         if ($get['action'] === 'json') {

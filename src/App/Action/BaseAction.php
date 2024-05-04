@@ -5,7 +5,7 @@ use App\Object\BaseObject;
 use App\Template\Template;
 use App\Variable;
 
-class BaseAction extends BaseObject
+abstract class BaseAction extends BaseObject
 {
     protected bool $terminal = false;
     

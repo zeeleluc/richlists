@@ -50,31 +50,60 @@ if (!function_exists('env')) {
 }
 
 if (!function_exists('abort')) {
-    function abort(string $message = null, string $type = 'success') {
+    function abort(string $message = null) {
+        redirect('', $message, 'danger');
+    }
+}
+
+if (!function_exists('success')) {
+    function success(string $url, string $message = null) {
+        redirect($url, $message, 'success');
+    }
+}
+
+if (!function_exists('warning')) {
+    function warning(string $url, string $message = null) {
+        redirect($url, $message, 'warning');
+    }
+}
+
+if (!function_exists('redirect')) {
+    function redirect(string $url, string $message = null, string $type = null) {
 
         if ($message) {
             $session = new \App\Session();
             $session->setSession('alert', [
                 'message' => $message,
-                'type' => $type,
+                'type' => $type ?? 'success',
             ]);
         }
 
-        header('Location: /');
+        header('Location: /' . $url);
         exit;
     }
 }
 
 if (!function_exists('generate_token')) {
-    function generate_token() {
+    function generate_token(int $length = 24) {
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $charactersLength = strlen($characters);
         $token = '';
-        for ($i = 0; $i < 24; $i++) {
+        for ($i = 0; $i < $length; $i++) {
             $randomIndex = rand(0, $charactersLength - 1);
             $token .= $characters[$randomIndex];
         }
 
         return $token;
+    }
+}
+
+if (!function_exists('flatten_string')) {
+    function flatten_string(string $string)
+    {
+        $string = str_replace(' ', '', $string);
+        $string = str_replace('-', '', $string);
+        $string = str_replace('_', '', $string);
+
+        return strtolower($string);
     }
 }

@@ -48,10 +48,7 @@ class UpdateDataNFT extends BaseAction implements
             $contract = $collection->config['contract'];
             $configIdentifier = $contract;
 
-            $this->slack->sendInfoMessage('Starting with ' . $collection->name . '...');
-
             if (in_array($configIdentifier, $collectionsDoneByIssuerTaxon)) {
-                $this->slack->sendInfoMessage('Skipping! ' . $collection->name . ' already done in this loop.');
                 continue;
             }
             try {

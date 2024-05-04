@@ -33,15 +33,15 @@ class Cli extends BaseAction
         $this->action = $_SERVER['argv'][1];
 
         if ($this->action === 'update-data-nft-xrpl') {
-            $start = $this->startMonitoring('update-data-nft');
+            $start = $this->startMonitoring('XRPL: update-data-nft');
             (new UpdateDataNFTXRPL())->run();
-            $this->stopMonitoring('update-data-nft', $start);
+            $this->stopMonitoring('XRPL: update-data-nft', $start);
         }
 
         if ($this->action === 'update-data-nft-ethereum') {
-            $start = $this->startMonitoring('update-data-ethereum');
+            $start = $this->startMonitoring('Ethereum: update-data-ethereum');
             (new UpdateDataNFTEthereum())->run();
-            $this->stopMonitoring('update-data-nft', $start);
+            $this->stopMonitoring('Ethereum: update-data-nft', $start);
         }
 
         if ($this->action === 'calc-richlists-xrpl') {
@@ -74,6 +74,6 @@ class Cli extends BaseAction
         $took = date_diff($start, date_create())->format('%H:%I:%S');
 
         $slack = new \App\Slack();
-        $slack->sendInfoMessage('Done with `update-data-nft`, took ' . $took);
+        $slack->sendInfoMessage('Done with `' . $cronjob . '`, took ' . $took);
     }
 }

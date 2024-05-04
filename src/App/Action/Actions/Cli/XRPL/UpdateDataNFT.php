@@ -47,8 +47,6 @@ class UpdateDataNFT extends BaseAction implements
         $collectionsDoneByIssuerTaxon = [];
 
         foreach ($this->getCollectionQuery()->getAllForChain(self::CHAIN) as $collection) {
-            $this->slack->sendInfoMessage('Starting with ' . $collection->name . '...');
-
             $issuer = $collection->config['issuer'];
             $taxon = $collection->config['taxon'] ?? null;
 
@@ -58,7 +56,6 @@ class UpdateDataNFT extends BaseAction implements
             }
 
             if (in_array($configIdentifier, $collectionsDoneByIssuerTaxon)) {
-                $this->slack->sendInfoMessage('Skipping! ' . $collection->name . ' already done in this loop.');
                 continue;
             }
             try {

@@ -5,6 +5,7 @@ use App\Action\Actions\Cli\Traits\UpdateDataNFTTrait;
 use App\Action\BaseAction;
 use App\Variable;
 use Carbon\Carbon;
+use function ArrayHelpers\array_has;
 
 class Status extends BaseAction
 {
@@ -21,16 +22,20 @@ class Status extends BaseAction
         $query = $this->getBlockchainTokenQuery();
 
         $statuses = [];
+        $collectionsDone = [];
         foreach ($this->getCollectionQuery()->getAll() as $collection) {
-            $tableName = $collection->getTableName();
-            if ($query->hasTable($tableName)) {
-                $identifier = $collection->getIdentifier();
-                $lastSyncedRecord = $query->getNewestRecord($tableName)['created_at'];
-                $statuses[] = [
-                    'name' => $collection->name,
-                    'identifier' => $identifier,
-                    'last_sync_record' => $lastSyncedRecord,
-                ];
+            $identifier = $collection->getIdentifier();
+            if (!in_array($identifier, $collectionsDone)) {
+                $tableName = $collection->getTableName();
+                if ($query->hasTable($tableName)) {
+                    $lastSyncedRecord = $query->getNewestRecord($tableName)['created_at'];
+                    $statuses[] = [
+                        'name' => $collection->name,
+                        'identifier' => $identifier,
+                        'last_sync_record' => $lastSyncedRecord,
+                    ];
+                    $collectionsDone[] = $identifier;
+                }
             }
         }
 

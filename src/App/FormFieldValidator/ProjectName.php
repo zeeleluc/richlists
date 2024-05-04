@@ -9,7 +9,7 @@ class ProjectName extends FormFieldValidator
 
     public function validate(): void
     {
-        if (!is_string($this->value)) {
+        if ($this->value === '' || !is_string($this->value)) {
             $this->setMessage('Project name is incorrect.');
         }
 

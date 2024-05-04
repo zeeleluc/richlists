@@ -12,6 +12,8 @@ abstract class FormFieldValidator
     ) {
     }
 
+    abstract public function validate();
+
     public function isValid(): bool
     {
         return count($this->messages) === 0;

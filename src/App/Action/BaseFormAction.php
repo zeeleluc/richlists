@@ -38,6 +38,7 @@ abstract class BaseFormAction extends BaseAction
     protected function validateFormValues(array $formFieldValidators): void
     {
         foreach ($formFieldValidators as $formFieldValidator) { /* @var $formFieldValidator FormFieldValidator */
+            $formFieldValidator->validate();
             if (!$formFieldValidator->isValid()) {
                 foreach ($formFieldValidator->getMessages() as $message) {
                     $this->formErrors[] = $message;

@@ -28,7 +28,7 @@ class Status extends BaseAction
             if (!in_array($identifier, $collectionsDone)) {
                 $tableName = $collection->getTableName();
                 if ($query->hasTable($tableName)) {
-                    $lastSyncedRecord = $query->getNewestRecord($tableName)['created_at'];
+                    $lastSyncedRecord = $query->getNewestRecord($tableName)['updated_at'];
                     $statuses[] = [
                         'name' => $collection->name,
                         'identifier' => $identifier,

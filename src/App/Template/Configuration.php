@@ -26,6 +26,7 @@ abstract class Configuration extends BaseObject
                 'projects',
                 'richlists-per-project',
                 'register',
+                'status',
             ],
         ];
     }

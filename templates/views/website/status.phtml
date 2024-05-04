@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-10">
+            <h1>
+                Sync Status
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col col-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <?php foreach ($statuses as $status): ?>
+                        <tr>
+                            <td><?=$status['name']; ?></td>
+                            <td><?=$status['identifier']; ?></td>
+                            <td><?=$status['last_sync_record']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

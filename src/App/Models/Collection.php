@@ -106,4 +106,36 @@ class Collection extends BaseModel
     {
         return new CollectionQuery();
     }
+
+    public function getTableName():? string
+    {
+        if ($this->chain === 'xrpl') {
+            if (isset($this->config['taxon'])) {
+                return $this->chain . '_' . $this->config['issuer'] . '_' . $this->config['taxon'] . '_nfts';
+            }
+            return $this->chain . '_' . $this->config['issuer'] . '_nfts';
+        }
+
+        if ($this->chain === 'ethereum') {
+            return $this->chain . '_' . $this->config['contract'] . '_nfts';
+        }
+
+        return null;
+    }
+
+    public function getIdentifier():? string
+    {
+        if ($this->chain === 'xrpl') {
+            if (isset($this->config['taxon'])) {
+                return $this->config['issuer'] . ':' . $this->config['taxon'];
+            }
+            return $this->config['issuer'];
+        }
+
+        if ($this->chain === 'ethereum') {
+            return $this->config['contract'];
+        }
+
+        return null;
+    }
 }

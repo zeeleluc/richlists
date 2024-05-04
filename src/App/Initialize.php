@@ -82,6 +82,10 @@ class Initialize extends BaseObject
             return new Action\Actions\Register();
         }
 
+        if ($get['action'] === 'status') {
+            return new Action\Actions\Status();
+        }
+
         if ($get['action'] === 'json') {
             if (isset($get['chain']) && $get['chain'] === 'xrpl') {
                 return new Action\Actions\XRPL\Json();

@@ -107,3 +107,32 @@ if (!function_exists('flatten_string')) {
         return strtolower($string);
     }
 }
+
+if (!function_exists('form_errors')) {
+    function form_errors(array $formValidatedValues, array $formErrors)
+    {
+        $session = new \App\Session();
+        $session->setSession('formValidatedValues', $formValidatedValues);
+        $session->setSession('formErrors', $formErrors);
+    }
+}
+
+if (!function_exists('parse_form_errors')) {
+    function parse_form_errors(string $formField, array $formErrors = null):? string
+    {
+        if (!$formErrors) {
+            return null;
+        }
+
+        if (!isset($formErrors[$formField])) {
+            return null;
+        }
+
+        $html = '';
+        foreach ($formErrors[$formField] as $formError) {
+            $html .= '<div class="invalid-feedback d-block">' . $formError . '</div>';
+        }
+
+        return $html;
+    }
+}

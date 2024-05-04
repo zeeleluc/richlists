@@ -27,11 +27,6 @@ class Register extends BaseFormAction
         }
     }
 
-    protected function performGet()
-    {
-
-    }
-
     /**
      * @throws \Exception
      */

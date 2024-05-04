@@ -8,15 +8,30 @@
         <div class="col col-12 col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <form method="post" action="register">
+                    <form id="register" method="post" action="register">
                         <div class="form-group my-3">
                             <label for="email" class="my-2">Email address</label>
-                            <input type="email" name="email" class="form-control" id="email" placeholder="Your e-mail">
-                            <small>We'll never share your email with anyone else.</small>
+                            <input
+                                type="email"
+                                name="email"
+                                class="form-control <?=$formErrors && isset($formErrors['email']) ? 'is-invalid' : ''; ?>"
+                                value="<?=$formValidatedValues && isset($formValidatedValues['email']) ? $formValidatedValues['email'] : ''; ?>"
+                                id="email"
+                                placeholder="Your e-mail"
+                            />
+                            <?=parse_form_errors('email', $formErrors); ?>
                         </div>
                         <div class="form-group my-3">
                             <label for="project_name" class="my-2">Project Name</label>
-                            <input type="text" name="project_name" class="form-control" id="project_name" placeholder="Project Name">
+                            <input
+                                type="text"
+                                name="project_name"
+                                class="form-control <?=$formErrors && isset($formErrors['project_name']) ? 'is-invalid' : ''; ?>"
+                                value="<?=$formValidatedValues && isset($formValidatedValues['project_name']) ? $formValidatedValues['project_name'] : ''; ?>"
+                                id="project_name"
+                                placeholder="Project Name"
+                            />
+                            <?=parse_form_errors('project_name', $formErrors); ?>
                         </div>
                         <button type="submit" class="btn btn-primary">Register</button>
                     </form>

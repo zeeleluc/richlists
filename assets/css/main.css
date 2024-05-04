@@ -142,3 +142,7 @@ ul.nav li.nav-item a.disabled {
         margin: 0;
     }
 }
+
+form .invalid-feedback {
+    color: #ffbcc3;
+}

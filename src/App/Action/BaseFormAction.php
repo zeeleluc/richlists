@@ -2,6 +2,7 @@
 namespace App\Action;
 
 use App\FormFieldValidator\FormFieldValidator;
+use App\Variable;
 
 abstract class BaseFormAction extends BaseAction
 {
@@ -12,7 +13,17 @@ abstract class BaseFormAction extends BaseAction
 
     protected array $validatedFormValues = [];
 
-    abstract protected function performGet();
+    protected function performGet()
+    {
+        $this->setVariable(new Variable(
+            'formValidatedValues',
+            $this->getSession()->getItem('formValidatedValues'))
+        );
+        $this->setVariable(new Variable(
+            'formErrors',
+            $this->getSession()->getItem('formErrors'))
+        );
+    }
 
     abstract protected function performPost();
 
@@ -41,7 +52,7 @@ abstract class BaseFormAction extends BaseAction
             $formFieldValidator->validate();
             if (!$formFieldValidator->isValid()) {
                 foreach ($formFieldValidator->getMessages() as $message) {
-                    $this->formErrors[] = $message;
+                    $this->formErrors[$formFieldValidator->key][] = $message;
                 }
             } else {
                 $this->validatedFormValues[$formFieldValidator->key] = $formFieldValidator->value;
@@ -49,6 +60,7 @@ abstract class BaseFormAction extends BaseAction
         }
 
         if ($this->hasFormErrors()) {
+            form_errors($this->validatedFormValues, $this->formErrors);
             warning($this->formRoute, 'Fix the form errors and try again.');
         } else {
             $this->handleForm();

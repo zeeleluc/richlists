@@ -51,28 +51,54 @@ HTML;
 
     private function getExampleCodeJsonApi(UserModel $user): string
     {
-        $exampleUrl = env('URL') . '/json/' . $user->projectSlug . '/ethereum/' . $user->token;
+        $exampleUrl = env('URL') . '/json/' . $user->projectSlug . '/xrpl/' . $user->token;
         $exampleCode = <<<JS
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
     fetch('{$exampleUrl}')
     .then(response => response.json())
     .then(data => renderData(data))
     .catch(error => console.error('Error fetching data:', error));
 
     function renderData(data) {
-        var tableHTML = '<table class="table table-striped"><thead><tr><th>User ID</th><th>Total</th></tr></thead><tbody>';
+        var tableHTML = '<table class="table table-striped"><thead><tr><th>Wallet</th><th>Total</th></tr></thead><tbody>';
 
         for (var userId in data) {
             if (data.hasOwnProperty(userId)) {
                 var total = data[userId].total;
-                tableHTML += '<tr><td>' + userId + '</td><td>' + total + '</td></tr>';
+                tableHTML += '<tr><td>' + userId + '</td><td><button class="toggle-btn" data-userid="' + userId + '">' + total + '</button></td></tr>';
+                tableHTML += '<tr id="' + userId + 'Collections" style="display: none;"><td colspan="2">';
+                tableHTML += renderCollections(data[userId].collections);
+                tableHTML += '</td></tr>';
             }
         }
 
         tableHTML += '</tbody></table>';
 
         document.getElementById('tableContainer').innerHTML = tableHTML;
+
+        var toggleButtons = document.querySelectorAll('.toggle-btn');
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                toggleCollections(button.dataset.userid);
+            });
+        });
+    }
+
+    function renderCollections(collections) {
+        var collectionsHTML = '<div>';
+        for (var collection in collections) {
+            if (collections.hasOwnProperty(collection)) {
+                collectionsHTML += '<div><strong>' + collection + ':</strong> ' + collections[collection].total + '</div>';
+            }
+        }
+        collectionsHTML += '</div>';
+        return collectionsHTML;
+    }
+
+    function toggleCollections(userId) {
+        var collectionsDiv = document.getElementById(userId + 'Collections');
+        collectionsDiv.style.display = (collectionsDiv.style.display === 'none') ? 'block' : 'none';
     }
 });
 </script>

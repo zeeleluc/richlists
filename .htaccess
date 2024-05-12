@@ -12,6 +12,7 @@ Options -Indexes
 RewriteEngine On
 RewriteRule \.(css|jpe?g|gif|png|js|ico)$ - [L]
 RewriteRule ^([a-z0-9-]+)/?$ index.php?action=$1 [NC,L,QSA]
+RewriteRule ^(user)/([a-z0-9-]+)?$ index.php?action=$1&project=$2 [NC,L,QSA]
 RewriteRule ^(project)/([a-z0-9-]+)?$ index.php?action=$1&project=$2 [NC,L,QSA]
 RewriteRule ^(project)/([a-z0-9-]+)/([a-z]+)?$ index.php?action=$1&project=$2&chain=$3 [NC,L,QSA]
 RewriteRule ^(json)/([a-z]+)/([a-z]+)/([A-Z0-9]{24})/?$ index.php?action=$1&project=$2&chain=$3&api=$4 [NC,L,QSA]

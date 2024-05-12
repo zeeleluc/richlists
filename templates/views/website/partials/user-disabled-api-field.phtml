@@ -1,0 +1,15 @@
+<div class="mb-3 row">
+    <label for="<?=$apiField['id']; ?>" class="col-sm-4 col-form-label">
+        <?=$apiField['title']; ?>
+    </label>
+    <div class="col-sm-8">
+        <input
+            type="text"
+            class="form-control"
+            id="<?=$apiField['id']; ?>"
+            value="<?=$apiField['url']; ?>"
+            readonly
+            disabled
+        />
+    </div>
+</div>

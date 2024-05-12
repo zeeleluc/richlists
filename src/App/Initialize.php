@@ -98,6 +98,10 @@ class Initialize extends BaseObject
             }
         }
 
+        if ($get['action'] === 'user') {
+            return new Action\Actions\User();
+        }
+
         if ($get['action'] === 'project') {
             foreach ($this->getUserQuery()->getAll() as $user) {
                 if ($user->projectSlug === $get['project']) {

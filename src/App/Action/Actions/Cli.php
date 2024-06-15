@@ -33,15 +33,11 @@ class Cli extends BaseAction
         $this->action = $_SERVER['argv'][1];
 
         if ($this->action === 'update-data-nft-xrpl') {
-            $start = $this->startMonitoring('XRPL: update-data-nft');
             (new UpdateDataNFTXRPL())->run();
-            $this->stopMonitoring('XRPL: update-data-nft', $start);
         }
 
         if ($this->action === 'update-data-nft-ethereum') {
-            $start = $this->startMonitoring('Ethereum: update-data-ethereum');
             (new UpdateDataNFTEthereum())->run();
-            $this->stopMonitoring('Ethereum: update-data-nft', $start);
         }
 
         if ($this->action === 'calc-richlists-xrpl') {

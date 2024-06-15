@@ -31,7 +31,7 @@ class AnalyzeNFTs extends BaseAction implements CliActionInterface
             $newestCreatedAt = Carbon::parse($this->getBlockchainTokenQuery()->getNewestRecord($tableNameNFTs)['created_at']);
 
             $diffInSeconds = $oldestCreatedAt->diffInSeconds($newestCreatedAt);
-            $tenMinutesInSeconds = 60;
+            $tenMinutesInSeconds = 60 * 24;
 
             if ($diffInSeconds > $tenMinutesInSeconds) {
                 $text = 'Diff between oldest and newest record for `' . $collection->name . '` is more than 1 hour.';

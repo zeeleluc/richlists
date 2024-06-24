@@ -1,6 +1,7 @@
 <?php
 namespace App\Action;
 
+use App\Auth;
 use App\Object\BaseObject;
 use App\Template\Template;
 use App\Variable;
@@ -13,8 +14,12 @@ abstract class BaseAction extends BaseObject
 
     private Template $template;
 
+    public Auth $auth;
+
     public function __construct()
     {
+        $this->auth = new Auth();
+
         if ($this->terminal) {
             if (!is_cli()) {
                 exit;
@@ -27,6 +32,9 @@ abstract class BaseAction extends BaseObject
             $this->template = new Template();
 
             $this->setVariable(new Variable('alert', $this->getSession()->getItem('alert')));
+
+            $this->setVariable(new Variable('isLoggedIn', $this->auth->isLoggedIn()));
+            $this->setVariable(new Variable('loggedInUser', $this->auth->getLoggedInUser()));
         }
     }
 

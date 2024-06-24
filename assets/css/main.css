@@ -17,7 +17,7 @@ body {
 }
 
 nav.navbar {
-    background-color: #111111 !important;
+    background-color: #111111;
 }
 nav .nav-link, nav .nav-link:active, nav .nav-link:visited, nav .nav-link:link {
     color: #ffffff;
@@ -25,6 +25,9 @@ nav .nav-link, nav .nav-link:active, nav .nav-link:visited, nav .nav-link:link {
 }
 nav .nav-link:hover {
     color: #ffff11;
+}
+nav.navbar.logged-in {
+    background-color: #ffc107;
 }
 table.table {
     border: 10px solid #ffffbc;

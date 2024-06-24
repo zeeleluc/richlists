@@ -42,11 +42,15 @@ class UserQuery extends Query
         return $users;
     }
 
-    public function getUserByEmail(string $email): User
+    public function getUserByEmail(string $email): ?User
     {
         $values = $this->db
             ->where('email', $email)
             ->getOne($this->table);
+
+        if (!$values) {
+            return null;
+        }
 
         $user = new User();
         return $user->fromArray($values);

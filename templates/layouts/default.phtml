@@ -19,15 +19,27 @@
 </head>
 
 <body class="bg-dark">
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="<?=env('URL'); ?>">RichLists 🤑</a>
-            <a class="nav-link" href="<?=env('URL'); ?>/projects">All RichLists</a>
+            <a class="navbar-brand" href="<?=env('URL'); ?>/projects">RichLists 🤑</a>
+            <?php if ($isLoggedIn): ?>
+                <a class="nav-link" href="<?=env('URL'); ?>/logout">Logout</a>
+            <?php else: ?>
+                <a class="nav-link" href="<?=env('URL'); ?>/login">Login</a>
+            <?php endif; ?>
         </div>
     </nav>
 
-    <main>
+    <?php if ($isLoggedIn): ?>
+        <nav class="navbar navbar-expand-lg logged-in">
+            <div class="container">
+                <?=$loggedInUser->projectName; ?>
+            </div>
+        </nav>
+    <?php endif; ?>
 
+    <main>
         <?php if ($alert): ?>
             <div class="container">
                 <div class="alert alert-<?=$alert['type']; ?> mt-5 text-center" role="alert">
@@ -35,7 +47,6 @@
                 </div>
             </div>
         <?php endif; ?>
-
         <?=$content; ?>
     </main>
 

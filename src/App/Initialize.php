@@ -78,6 +78,14 @@ class Initialize extends BaseObject
             return new Action\Actions\Projects();
         }
 
+        if ($get['action'] === 'login') {
+            return new Action\Actions\Login();
+        }
+
+        if ($get['action'] === 'logout') {
+            return new Action\Actions\Logout();
+        }
+
         if ($get['action'] === 'register') {
             return new Action\Actions\Register();
         }

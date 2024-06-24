@@ -46,8 +46,10 @@ abstract class BaseFormAction extends BaseAction
         return $this->validatedFormValues;
     }
 
-    protected function validateFormValues(array $formFieldValidators): void
-    {
+    protected function validateFormValues(
+        array $formFieldValidators,
+        string $onlyReturnThisMessageOnErrors = ''
+    ): void {
         foreach ($formFieldValidators as $formFieldValidator) { /* @var $formFieldValidator FormFieldValidator */
             $formFieldValidator->validate();
             if (!$formFieldValidator->isValid()) {
@@ -60,8 +62,12 @@ abstract class BaseFormAction extends BaseAction
         }
 
         if ($this->hasFormErrors()) {
-            form_errors($this->validatedFormValues, $this->formErrors);
-            warning($this->formRoute, 'Fix the form errors and try again.');
+            if ($onlyReturnThisMessageOnErrors) {
+                warning($this->formRoute, $onlyReturnThisMessageOnErrors);
+            } else {
+                form_errors($this->validatedFormValues, $this->formErrors);
+                warning($this->formRoute, 'Fix the form errors and try again.');
+            }
         } else {
             $this->handleForm();
         }

@@ -2,6 +2,7 @@
 namespace App;
 
 use App\Models\User;
+use App\Query\UserQuery;
 
 class Auth
 {
@@ -9,11 +10,6 @@ class Auth
     public function getUser(): User
     {
         return new User();
-    }
-
-    public function register(array $values): User
-    {
-
     }
 
     public function createTempPassword(): string
@@ -26,8 +22,37 @@ class Auth
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function validateRegistration(array $values): bool
+    public function verify(string $password, string $hash): bool
     {
-        return true;
+        return password_verify($password, $hash);
+    }
+
+    public function clearLoggedIn(): void
+    {
+        (new Session())->destroySession('loggedIn');
+    }
+
+    public function setLoggedIn(User $user): void
+    {
+        (new Session())->setSession('loggedIn', $user->id);
+    }
+
+    public function isLoggedIn(): bool
+    {
+        return ! is_null((new Session())->getItem('loggedIn'));
+    }
+
+    public function getLoggedInUser(): ?User
+    {
+        if (!$this->isLoggedIn()) {
+            return null;
+        }
+
+        $userId = (int) (new Session())->getItem('loggedIn');
+        if (!$userId || !is_numeric($userId)) {
+            return null;
+        }
+
+        return (new UserQuery())->getUserById($userId);
     }
 }

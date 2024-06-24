@@ -25,6 +25,7 @@ abstract class Configuration extends BaseObject
                 'richlist',
                 'projects',
                 'richlists-per-project',
+                'login',
                 'register',
                 'status',
                 'user',

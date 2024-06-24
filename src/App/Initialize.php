@@ -97,12 +97,16 @@ class Initialize extends BaseObject
         if ($get['action'] === 'json') {
             if (isset($get['chain']) && $get['chain'] === 'xrpl') {
                 return new Action\Actions\XRPL\Json();
+            } elseif (isset($get['chain']) && $get['chain'] === 'ethereum') {
+                return new Action\Actions\Ethereum\Json();
             }
         }
 
         if ($get['action'] === 'html') {
             if (isset($get['chain']) && $get['chain'] === 'xrpl') {
                 return new Action\Actions\XRPL\Html();
+            } elseif (isset($get['chain']) && $get['chain'] === 'ethereum') {
+                return new Action\Actions\Ethereum\Html();
             }
         }
 

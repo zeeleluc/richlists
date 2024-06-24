@@ -32,11 +32,18 @@
     </nav>
 
     <?php if ($isLoggedIn): ?>
-        <nav class="navbar navbar-expand-lg logged-in">
-            <div class="container">
-                <?=$loggedInUser->projectName; ?>
+        <div class="container-fluid logged-in">
+            <div class="row">
+                <div class="col">
+                    <div class="container">
+                        <?=$loggedInUser->projectName; ?>:
+                        <a href="<?=env('URL'); ?>/user/<?=$loggedInUser->projectSlug; ?>">
+                            Your Endpoints
+                        </a>
+                    </div>
+                </div>
             </div>
-        </nav>
+        </div>
     <?php endif; ?>
 
     <main>

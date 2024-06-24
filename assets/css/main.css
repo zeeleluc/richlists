@@ -26,8 +26,15 @@ nav .nav-link, nav .nav-link:active, nav .nav-link:visited, nav .nav-link:link {
 nav .nav-link:hover {
     color: #ffff11;
 }
-nav.navbar.logged-in {
+.container-fluid.logged-in {
+    padding: 10px 0;
     background-color: #ffc107;
+    color: #000000;
+}
+.container-fluid.logged-in a,
+.container-fluid.logged-in a:hover {
+    text-decoration: none;
+    color: #000000;
 }
 table.table {
     border: 10px solid #ffffbc;

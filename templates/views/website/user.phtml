@@ -37,6 +37,18 @@
                         }
                         ?>
                     <?php endif; ?>
+                    <?php if ($user->hasCollectionsOnChain('base')): ?>
+                        <?php
+                        foreach (['json', 'html'] as $dataType) {
+                            $apiField = [
+                                'id' => 'base-' . $dataType,
+                                'title' => 'Base ' . strtoupper($dataType),
+                                'url' => (env('URL') . '/' . $dataType. '/' . $user->projectSlug . '/base/' . $user->token),
+                            ];
+                            include('templates/views/website/partials/user-disabled-api-field.phtml');
+                        }
+                        ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

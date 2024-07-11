@@ -43,10 +43,7 @@ class CalcRichListService {
 
         $collections = $this->userQuery->getUserByProject($this->project)->getCollectionsForChain(self::CHAIN);
         foreach ($collections as $collection) {
-            $contract = $collection->config['$contract'];
-
             $prepareCollection = [
-                'contract' => $contract,
                 'total' => 0,
             ];
             $array['collections'][$collection->name] = $prepareCollection;

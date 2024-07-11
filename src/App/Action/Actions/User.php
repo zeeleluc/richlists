@@ -30,7 +30,6 @@ class User extends BaseAction
         $this->setVariable(new Variable('user', $user));
         $this->setVariable(new Variable('exampleCodeHtml', $this->getExampleCodeHtmlApi($user)));
         $this->setVariable(new Variable('exampleCodeJson', $this->getExampleCodeJsonApi($user)));
-
     }
 
     private function getExampleCodeHtmlApi(UserModel $user): string

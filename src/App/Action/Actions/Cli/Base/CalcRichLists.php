@@ -3,7 +3,7 @@ namespace App\Action\Actions\Cli\Base;
 
 use App\Action\Actions\Cli\Interfaces\CliActionInterface;
 use App\Action\BaseAction;
-use App\Services\Ethereum\CalcRichListService;
+use App\Services\Base\CalcRichListService;
 
 class CalcRichLists extends BaseAction implements CliActionInterface
 {

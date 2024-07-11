@@ -7,6 +7,25 @@
         </div>
     </div>
     <div class="row justify-content-center row-richlist">
+        <?php if ($user->hasCollectionsOnChain('base')): ?>
+            <div class="col col-12 col-xs-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Base</h2>
+                    </div>
+                    <div class="card-body">
+                        <?php foreach ($user->getCollectionsForChain('base') as $collection): ?>
+                            <?=$collection->name; ?><br />
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary" href="<?=env('URL'); ?>/project/<?=$user->projectSlug; ?>/base">
+                            RichList
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
         <?php if ($user->hasCollectionsOnChain('xrpl')): ?>
             <div class="col col-12 col-xs-12 col-md-6 col-lg-4">
                 <div class="card">

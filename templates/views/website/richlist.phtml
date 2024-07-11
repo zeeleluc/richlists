@@ -8,6 +8,17 @@
     </div>
 
     <ul class="nav nav-tabs">
+        <?php if ($user->hasCollectionsOnChain('base')): ?>
+            <li class="nav-item">
+                <a
+                    href="<?=env('URL'); ?>/project/<?=$user->projectSlug; ?>/base"
+                    class="nav-link <?=(strtolower($chain) === 'base' ? 'active' : ''); ?>"
+                    aria-current="page"
+                >
+                    Base
+                </a>
+            </li>
+        <?php endif; ?>
         <?php if ($user->hasCollectionsOnChain('xrpl')): ?>
             <li class="nav-item">
                 <a

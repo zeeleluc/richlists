@@ -18,6 +18,11 @@
                         </h2>
                     </div>
                     <div class="card-body">
+                        <?php if ($user->hasCollectionsOnChain('base')): ?>
+                            <a class="btn btn-primary" href="<?=env('URL'); ?>/project/<?=$user->projectSlug; ?>/base">
+                                Base RichList
+                            </a>
+                        <?php endif; ?>
                         <?php if ($user->hasCollectionsOnChain('xrpl')): ?>
                             <a class="btn btn-primary" href="<?=env('URL'); ?>/project/<?=$user->projectSlug; ?>/xrpl">
                                 XRPL RichList

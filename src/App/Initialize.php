@@ -99,6 +99,8 @@ class Initialize extends BaseObject
                 return new Action\Actions\XRPL\Json();
             } elseif (isset($get['chain']) && $get['chain'] === 'ethereum') {
                 return new Action\Actions\Ethereum\Json();
+            } elseif (isset($get['chain']) && $get['chain'] === 'base') {
+                return new Action\Actions\Base\Json();
             }
         }
 
@@ -107,6 +109,8 @@ class Initialize extends BaseObject
                 return new Action\Actions\XRPL\Html();
             } elseif (isset($get['chain']) && $get['chain'] === 'ethereum') {
                 return new Action\Actions\Ethereum\Html();
+            } elseif (isset($get['chain']) && $get['chain'] === 'base') {
+                return new Action\Actions\Base\Html();
             }
         }
 
@@ -121,6 +125,8 @@ class Initialize extends BaseObject
                         return new Action\Actions\XRPL\RichList();
                     } elseif ($get['chain'] === 'ethereum') {
                         return new Action\Actions\Ethereum\RichList();
+                    } elseif ($get['chain'] === 'base') {
+                        return new Action\Actions\Base\RichList();
                     } else {
                         return new Action\Actions\RichListsPerProject();
                     }

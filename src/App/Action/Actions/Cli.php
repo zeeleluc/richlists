@@ -7,6 +7,8 @@ use App\Action\Actions\Cli\XRPL\CalcRichLists as CalcRichListsXRPL;
 use App\Action\Actions\Cli\XRPL\UpdateDataNFT as UpdateDataNFTXRPL;
 use App\Action\Actions\Cli\Ethereum\UpdateDataNFT as UpdateDataNFTEthereum;
 use App\Action\Actions\Cli\Ethereum\CalcRichLists as CalcRichListsEthereum;
+use App\Action\Actions\Cli\Base\UpdateDataNFT as UpdateDataNFTBase;
+use App\Action\Actions\Cli\Base\CalcRichLists as CalcRichListsBase;
 use App\Action\BaseAction;
 
 class Cli extends BaseAction
@@ -40,12 +42,20 @@ class Cli extends BaseAction
             (new UpdateDataNFTEthereum())->run();
         }
 
+        if ($this->action === 'update-data-nft-base') {
+            (new UpdateDataNFTBase())->run();
+        }
+
         if ($this->action === 'calc-richlists-xrpl') {
             (new CalcRichListsXRPL())->run();
         }
 
         if ($this->action === 'calc-richlists-ethereum') {
             (new CalcRichListsEthereum())->run();
+        }
+
+        if ($this->action === 'calc-richlists-base') {
+            (new CalcRichListsBase())->run();
         }
 
         if ($this->action === 'analyze-nfts-xrpl') {

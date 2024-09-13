@@ -5,7 +5,8 @@
         "hardcastle/xrpl_php": "^0.9.3",
         "nesbot/carbon": "^3.3",
         "jolicode/slack-php-api": "^4.7",
-        "jdrieghe/array-helpers": "^0.2.0"
+        "jdrieghe/array-helpers": "^0.2.0",
+        "larapack/dd": "1.*"
     },
     "config": {
         "allow-plugins": {

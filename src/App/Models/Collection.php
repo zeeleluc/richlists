@@ -120,6 +120,10 @@ class Collection extends BaseModel
             return $this->chain . '_' . $this->config['contract'] . '_nfts';
         }
 
+        if ($this->chain === 'base') {
+            return $this->chain . '_' . $this->config['contract'] . '_nfts';
+        }
+
         return null;
     }
 
@@ -133,6 +137,10 @@ class Collection extends BaseModel
         }
 
         if ($this->chain === 'ethereum') {
+            return $this->config['contract'];
+        }
+
+        if ($this->chain === 'base') {
             return $this->config['contract'];
         }
 

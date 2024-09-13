@@ -96,7 +96,7 @@ SQL;
 
         return $this->db->rawQuery($sql);
     }
-    
+
     public function createTableNFTsEthereum(string $tableName)
     {
         $sql = <<<SQL
@@ -117,6 +117,42 @@ CREATE TABLE {$tableName} (
     token_hash VARCHAR(32),
     token_uri VARCHAR(255),
     minter_address VARCHAR(42),
+    rarity_rank VARCHAR(255),
+    rarity_percentage VARCHAR(255),
+    rarity_label VARCHAR(255),
+    verified_collection BOOLEAN,
+    possible_spam BOOLEAN,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+SQL;
+
+        return $this->db->rawQuery($sql);
+    }
+
+    public function createTableNFTsBase(string $tableName)
+    {
+        $sql = <<<SQL
+CREATE TABLE {$tableName} (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    amount INT,
+    token_id INT,
+    token_address VARCHAR(42),
+    contract_type VARCHAR(10),
+    owner_of VARCHAR(42),
+    last_metadata_sync VARCHAR(24),
+    last_token_uri_sync VARCHAR(24),
+    metadata TEXT,
+    block_number INT,
+    block_number_minted INT,
+    name VARCHAR(255),
+    symbol VARCHAR(10),
+    token_hash VARCHAR(32),
+    token_uri VARCHAR(255),
+    minter_address VARCHAR(42),
+    rarity_rank VARCHAR(255),
+    rarity_percentage VARCHAR(255),
+    rarity_label VARCHAR(255),
     verified_collection BOOLEAN,
     possible_spam BOOLEAN,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

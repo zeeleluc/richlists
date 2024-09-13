@@ -100,7 +100,7 @@ class UpdateDataNFT extends BaseAction implements
 
             $tableNameNFTs = $this->getTableNFTs($contract);
             if (!$this->getBlockchainTokenQuery()->hasTable($tableNameNFTs)) {
-                $this->getBlockchainTokenQuery()->createTableNFTsEthereum($tableNameNFTs);
+                $this->getBlockchainTokenQuery()->createTableNFTsBase($tableNameNFTs);
             }
         }
     }

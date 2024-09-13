@@ -72,7 +72,7 @@ class UserQuery extends Query
     public function getUserByProject(string $project): ?User
     {
         $results = $this->db
-            ->where('project_name', $project)
+            ->where('project_slug', $project)
             ->getOne($this->table);
 
         if ($results) {

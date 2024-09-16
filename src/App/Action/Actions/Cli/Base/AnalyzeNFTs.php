@@ -23,20 +23,22 @@ class AnalyzeNFTs extends BaseAction implements CliActionInterface
     public function run()
     {
         foreach ($this->getCollectionQuery()->getAllForChain(self::CHAIN) as $collection) {
-            $issuer = $collection->config['issuer'];
-            $taxon = $collection->config['taxon'] ?? null;
+            if ($collection->active) {
+                $issuer = $collection->config['issuer'];
+                $taxon = $collection->config['taxon'] ?? null;
 
-            $tableNameNFTs = $this->getTableNFTs($issuer, $taxon);
-            $oldestCreatedAt = Carbon::parse($this->getBlockchainTokenQuery()->getOldestRecord($tableNameNFTs)['created_at']);
-            $newestCreatedAt = Carbon::parse($this->getBlockchainTokenQuery()->getNewestRecord($tableNameNFTs)['created_at']);
+                $tableNameNFTs = $this->getTableNFTs($issuer, $taxon);
+                $oldestCreatedAt = Carbon::parse($this->getBlockchainTokenQuery()->getOldestRecord($tableNameNFTs)['created_at']);
+                $newestCreatedAt = Carbon::parse($this->getBlockchainTokenQuery()->getNewestRecord($tableNameNFTs)['created_at']);
 
-            $diffInSeconds = $oldestCreatedAt->diffInSeconds($newestCreatedAt);
-            $oneDayInSeconds = (60 * 60) * 24;
+                $diffInSeconds = $oldestCreatedAt->diffInSeconds($newestCreatedAt);
+                $oneDayInSeconds = (60 * 60) * 24;
 
-            if ($diffInSeconds > $oneDayInSeconds) {
-                $text = 'Diff between oldest and newest record for `' . $collection->name . '` is more than 1 day.';
-                $slack = new Slack();
-                $slack->sendErrorMessage($text);
+                if ($diffInSeconds > $oneDayInSeconds) {
+                    $text = 'Diff between oldest and newest record for `' . $collection->name . '` is more than 1 day.';
+                    $slack = new Slack();
+                    $slack->sendErrorMessage($text);
+                }
             }
         }
     }

@@ -31,6 +31,7 @@ class Status extends BaseAction
                     $lastSyncedRecord = $query->getNewestRecord($tableName)['updated_at'];
                     $statuses[] = [
                         'name' => $collection->name,
+                        'active' => $collection->active,
                         'identifier' => $identifier,
                         'last_sync_record' => $lastSyncedRecord,
                     ];

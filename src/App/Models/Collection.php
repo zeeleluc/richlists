@@ -18,6 +18,8 @@ class Collection extends BaseModel
 
     public string $name;
 
+    public bool $active;
+
     public array $config;
 
     public ?Carbon $createdAt = null;
@@ -42,6 +44,7 @@ class Collection extends BaseModel
         $collection->user = (new UserQuery())->getUserById(Arr::get($values, 'user_id'));
         $collection->chain = Arr::get($values, 'chain');
         $collection->name = Arr::get($values, 'name');
+        $collection->active = (bool) Arr::get($values, 'active');
         $collection->config = (array) json_decode(Arr::get($values, 'config'), true);
         if ($createdAt = Arr::get($values, 'created_at')) {
             $collection->createdAt = Carbon::parse($createdAt);
@@ -66,6 +69,7 @@ class Collection extends BaseModel
         $array['user_id'] = $this->user->id;
         $array['chain'] = $this->chain;
         $array['name'] = $this->name;
+        $array['active'] = $this->active ? 1 : 0;
         $array['config'] = json_encode($this->config);
         if ($this->createdAt) {
             $array['created_at'] = $this->createdAt;

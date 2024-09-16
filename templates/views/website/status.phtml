@@ -16,6 +16,13 @@
                             <td style="min-width: 270px"><?=$status['name']; ?></td>
                             <td><?=$status['identifier']; ?></td>
                             <td style="min-width: 270px"><?=$status['last_sync_record']; ?></td>
+                            <td>
+                                <?php if ($status['active']): ?>
+                                    active
+                                <?php else: ?>
+                                    inactive
+                                <?php endif; ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </table>

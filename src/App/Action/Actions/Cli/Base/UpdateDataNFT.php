@@ -51,39 +51,42 @@ class UpdateDataNFT extends BaseAction implements
             if (in_array($configIdentifier, $collectionsDoneByIssuerTaxon)) {
                 continue;
             }
-            try {
-                $cursor = null;
-                do {
 
-                    $response = $this->client->request('GET', $this->assembleUrl($contract, $cursor), [
-                        'headers' => [
-                            'Accept' => 'application/json',
-                            'X-API-Key' => env('MORALIS_API_KEY'),
-                        ],
-                    ]);
+            if ($collection->active) {
+                try {
+                    $cursor = null;
+                    do {
 
-                    $response = (array) json_decode($response->getBody(), true);
+                        $response = $this->client->request('GET', $this->assembleUrl($contract, $cursor), [
+                            'headers' => [
+                                'Accept' => 'application/json',
+                                'X-API-Key' => env('MORALIS_API_KEY'),
+                            ],
+                        ]);
 
-                    $tableNameNFTs = $this->getTableNFTs($contract);
-                    foreach ($response['result'] as $result) {
-                        $this->getBlockchainTokenQuery()->insertNFTdata(
-                            $tableNameNFTs,
-                            $result,
-                            'token_id',
-                            $result['token_id']
-                        );
-                    }
+                        $response = (array)json_decode($response->getBody(), true);
 
-                    $cursor = array_key_exists('cursor', $response) ?
-                        $response['cursor'] :
-                        null;
+                        $tableNameNFTs = $this->getTableNFTs($contract);
+                        foreach ($response['result'] as $result) {
+                            $this->getBlockchainTokenQuery()->insertNFTdata(
+                                $tableNameNFTs,
+                                $result,
+                                'token_id',
+                                $result['token_id']
+                            );
+                        }
 
-                    echo $cursor . PHP_EOL;
+                        $cursor = array_key_exists('cursor', $response) ?
+                            $response['cursor'] :
+                            null;
 
-                } while(is_string($cursor));
+                        echo $cursor . PHP_EOL;
 
-            } catch (GuzzleException $e) {
-                $this->slack->sendErrorMessage($e->getMessage());
+                    } while (is_string($cursor));
+
+                } catch (GuzzleException $e) {
+                    $this->slack->sendErrorMessage($e->getMessage());
+                }
             }
 
             $collectionsDoneByIssuerTaxon[] = $configIdentifier;

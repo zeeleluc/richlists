@@ -58,44 +58,47 @@ class UpdateDataNFT extends BaseAction implements
             if (in_array($configIdentifier, $collectionsDoneByIssuerTaxon)) {
                 continue;
             }
-            try {
-                $marker = null;
-                do {
-                    $request = new NFTsByIssuerRequest(
-                        issuer: $issuer,
-                        nft_taxon: $taxon,
-                        marker: $marker
-                    );
-                    $response = $this->client->syncRequest($request); /* @var $response NFTsByIssuerResponse */
+            if ($collection->active) {
+                try {
+                    $marker = null;
+                    do {
+                        $request = new NFTsByIssuerRequest(
+                            issuer: $issuer,
+                            nft_taxon: $taxon,
+                            marker: $marker
+                        );
+                        $response = $this->client->syncRequest($request);
+                        /* @var $response NFTsByIssuerResponse */
 
-                    if ($response instanceof ErrorResponse) {
-                        $this->slack->sendErrorMessage($response->getError());
-                        break;
-                    }
+                        if ($response instanceof ErrorResponse) {
+                            $this->slack->sendErrorMessage($response->getError());
+                            break;
+                        }
 
-                    $responseResults = $response->getResult();
-                    foreach ($responseResults as $key => $results) {
-                        $tableNameNFTs = $this->getTableNFTs($issuer, $taxon);
-                        if ($key === 'nfts') {
-                            foreach ($results as $nftData) {
-                                $this->getBlockchainTokenQuery()->insertNFTdata(
-                                    $tableNameNFTs,
-                                    $nftData,
-                                    'nft_id',
-                                    $nftData['nft_id']
-                                );
+                        $responseResults = $response->getResult();
+                        foreach ($responseResults as $key => $results) {
+                            $tableNameNFTs = $this->getTableNFTs($issuer, $taxon);
+                            if ($key === 'nfts') {
+                                foreach ($results as $nftData) {
+                                    $this->getBlockchainTokenQuery()->insertNFTdata(
+                                        $tableNameNFTs,
+                                        $nftData,
+                                        'nft_id',
+                                        $nftData['nft_id']
+                                    );
+                                }
                             }
                         }
-                    }
 
-                    $marker = array_key_exists('marker', $responseResults) ?
-                        $responseResults['marker'] :
-                        null;
+                        $marker = array_key_exists('marker', $responseResults) ?
+                            $responseResults['marker'] :
+                            null;
 
-                } while(is_string($marker));
+                    } while (is_string($marker));
 
-            } catch (GuzzleException $e) {
-                $this->slack->sendErrorMessage($e->getMessage());
+                } catch (GuzzleException $e) {
+                    $this->slack->sendErrorMessage($e->getMessage());
+                }
             }
 
             $collectionsDoneByIssuerTaxon[] = $configIdentifier;

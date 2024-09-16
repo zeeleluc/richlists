@@ -16,7 +16,7 @@ class CalcRichLists extends BaseAction implements CliActionInterface
     {
         foreach ($this->getUserQuery()->getAll() as $user) {
 
-            $project = $user->projectName;
+            $project = $user->projectSlug;
 
             if ($forProject && $project !== $forProject) {
                 continue;

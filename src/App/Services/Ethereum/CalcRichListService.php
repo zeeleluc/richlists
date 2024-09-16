@@ -22,9 +22,13 @@ class CalcRichListService {
      */
     public function __construct(readonly private string $project)
     {
-        $this->userQuery = new UserQuery();
-        $this->blockchainTokenQuery = new BlockchainTokenQuery();
-        $this->countsPerWalletBluePrint = $this->createCountsPerWalletBluePrint();
+        try {
+            $this->userQuery = new UserQuery();
+            $this->blockchainTokenQuery = new BlockchainTokenQuery();
+            $this->countsPerWalletBluePrint = $this->createCountsPerWalletBluePrint();
+        } catch (\Exception $e) {
+            echo $e->getMessage() . PHP_EOL;
+        }
     }
 
     public function getCountsPerWalletBluePrint(): array

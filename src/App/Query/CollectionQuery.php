@@ -89,6 +89,7 @@ class CollectionQuery extends Query
         $results = $this->db
             ->where('user_id', $user->id)
             ->where('chain', $chain)
+            ->where('active', 1)
             ->get($this->table);
 
         $collections = [];

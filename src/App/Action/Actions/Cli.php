@@ -49,16 +49,19 @@ class Cli extends BaseAction
         if ($this->action === 'calc-richlists-xrpl') {
             echo 'calculating richlists for XRPL' . PHP_EOL;
             (new CalcRichListsXRPL())->run();
+            exit;
         }
 
         if ($this->action === 'calc-richlists-ethereum') {
             echo 'calculating richlists for Ethereum' . PHP_EOL;
             (new CalcRichListsEthereum())->run();
+            exit;
         }
 
         if ($this->action === 'calc-richlists-base') {
             echo 'calculating richlists for Base' . PHP_EOL;
             (new CalcRichListsBase())->run();
+            exit;
         }
 
         if ($this->action === 'analyze-nfts-xrpl') {

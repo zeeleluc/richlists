@@ -45,6 +45,8 @@ class UpdateDataNFT extends BaseAction implements
 
         foreach ($this->getCollectionQuery()->getAllForChain(self::CHAIN) as $collection) {
 
+            echo $collection->name . PHP_EOL;
+
             $contract = $collection->config['contract'];
             $configIdentifier = $contract;
 
@@ -55,6 +57,7 @@ class UpdateDataNFT extends BaseAction implements
             if ($collection->active) {
                 try {
                     $cursor = null;
+                    $round = 1;
                     do {
 
                         $response = $this->client->request('GET', $this->assembleUrl($contract, $cursor), [
@@ -80,7 +83,8 @@ class UpdateDataNFT extends BaseAction implements
                             $response['cursor'] :
                             null;
 
-                        echo $cursor . PHP_EOL;
+                        echo ' - ' . $round . PHP_EOL;
+                        $round++;
 
                     } while (is_string($cursor));
 

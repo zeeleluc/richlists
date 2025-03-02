@@ -6,6 +6,12 @@ use Carbon\Carbon;
 class BlockchainTokenQuery extends Query
 {
 
+    public function getNFTs(string $table)
+    {
+        return $this->db
+            ->get($table);
+    }
+
     public function hasNFT(string $table, string $column, string $value): bool
     {
         return (bool) $this->db
